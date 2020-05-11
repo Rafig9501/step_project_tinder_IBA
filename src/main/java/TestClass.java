@@ -2,15 +2,6 @@
 public class TestClass {
 
     public static void main(String[] args) {
-        System.out.println("hello");
-        System.out.println("World");
-        System.out.println("hello");
-
-
-        System.out.println("from rafig");
-        System.out.println("from rafig");
-
-        System.out.println("Shaiq");
-
+        System.out.println("я акула");
     }
 }
