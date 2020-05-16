@@ -2,9 +2,10 @@ package dao;
 
 import entity.Unlike;
 
+import java.util.List;
 import java.util.Optional;
 
-public class UnlikesDao implements DAO<Unlike>{
+public class UnlikesDao implements DAO<Unlike> {
 
     @Override
     public int create(Unlike unlike) {
@@ -17,12 +18,12 @@ public class UnlikesDao implements DAO<Unlike>{
     }
 
     @Override
-    public Unlike delete(Unlike unlike) {
-        return null;
+    public int delete(Unlike unlike) {
+        return 0;
     }
 
     @Override
-    public Unlike getAll() {
+    public List<Unlike> getAll() {
         return null;
     }
 }
