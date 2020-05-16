@@ -1,9 +1,11 @@
 package dao;
 
+import java.util.Optional;
+
 public interface DAO<T> {
 
-    T create(T t);
-    T get(int id);
+    int create(T t);
+    Optional<T> get(String id);
     T delete(T t);
-    T update(T t);
+    T getAll();
 }
