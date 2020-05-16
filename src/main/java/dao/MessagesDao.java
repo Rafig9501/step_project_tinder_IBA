@@ -2,6 +2,7 @@ package dao;
 
 import entity.Message;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MessagesDao implements DAO<Message> {
@@ -16,12 +17,12 @@ public class MessagesDao implements DAO<Message> {
     }
 
     @Override
-    public Message delete(Message message) {
-        return null;
+    public int delete(Message message) {
+        return 0;
     }
 
     @Override
-    public Message getAll() {
+    public List<Message> getAll() {
         return null;
     }
 }

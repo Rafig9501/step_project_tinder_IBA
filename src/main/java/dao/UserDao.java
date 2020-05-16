@@ -1,13 +1,16 @@
 package dao;
 
-import database.commands.UserCommand;
 import entity.User;
 import lombok.SneakyThrows;
 
 import java.sql.*;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static database.commands.UserCommand.*;
 
 public class UserDao implements DAO<User> {
 
@@ -22,7 +25,8 @@ public class UserDao implements DAO<User> {
     @SneakyThrows
     @Override
     public int create(User user) {
-        PreparedStatement statement = connection.prepareStatement(UserCommand.CREATE.QUERY, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement(CREATE.QUERY, Statement.RETURN_GENERATED_KEYS);
+        connection.setAutoCommit(false);
         statement.setString(1, user.getName());
         statement.setString(2, user.getSurname());
         statement.setString(3, user.getEmail());
@@ -39,7 +43,7 @@ public class UserDao implements DAO<User> {
     @SneakyThrows
     @Override
     public Optional<User> get(String id) {
-        PreparedStatement statement = connection.prepareStatement(UserCommand.GET.QUERY);
+        PreparedStatement statement = connection.prepareStatement(GET.QUERY);
         statement.setInt(1, Integer.parseInt(id));
         ResultSet set = statement.executeQuery();
         if (set.next()) {
@@ -54,13 +58,33 @@ public class UserDao implements DAO<User> {
         return Optional.empty();
     }
 
+    @SneakyThrows
     @Override
-    public User delete(User user) {
-        return null;
+    public int delete(User user) {
+        PreparedStatement statement = connection.prepareStatement(DELETE.QUERY, Statement.RETURN_GENERATED_KEYS);
+        statement.setInt(1, Integer.parseInt(user.getId()));
+        statement.execute();
+        if (statement.getGeneratedKeys().next()) {
+            connection.setAutoCommit(true);
+            return statement.getGeneratedKeys().getInt(1);
+        }
+        return -1;
     }
 
+    @SneakyThrows
     @Override
-    public User getAll() {
-        return null;
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
+        PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY);
+        ResultSet set = statement.executeQuery();
+        while (set.next()) {
+            users.add(new User(set.getString("id"),
+                    set.getString("email"),
+                    set.getString("name"),
+                    set.getString("surname"),
+                    set.getString("photo_url"),
+                    ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.systemDefault())));
+        }
+        return users;
     }
 }
