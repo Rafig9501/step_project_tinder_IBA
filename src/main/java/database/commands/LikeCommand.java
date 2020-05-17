@@ -2,8 +2,14 @@ package database.commands;
 
 public enum LikeCommand {
 
-    CREATE,
-    GET,
-    DELETE,
-    GET_ALL
+    CREATE("INSERT INTO like_dislike (from_user_id, to_user_id, is_like) VALUES (?,?,?)"),
+    GET("SELECT like_dislike.id, like_dislike.from_user_id, like_dislike.to_user_id, like_dislike.is_like FROM like_dislike LEFT JOIN users on like_dislike.from_user_id = users.id WHERE like_dislike.id=?"),
+    DELETE("DELETE FROM like_dislike WHERE id = ? RETURNING id"),
+    GET_ALL("SELECT * FROM like_dislike");
+
+    public String QUERY;
+
+    LikeCommand(String QUERY) {
+        this.QUERY = QUERY;
+    }
 }

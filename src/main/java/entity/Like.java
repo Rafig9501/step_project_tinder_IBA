@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Like implements Serializable {
 
     private String id;
-    private User from;
-    private User to;
+    private String fromUser;
+    private String toUser;
+    private Boolean isLiked;
 }
