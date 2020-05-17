@@ -74,17 +74,18 @@ public class UserDao implements DAO<User> {
     @SneakyThrows
     @Override
     public List<User> getAll() {
-        List<User> users = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY);
         ResultSet set = statement.executeQuery();
         while (set.next()) {
-            users.add(new User(set.getString("id"),
+            userList.add(new User(
+                    set.getString("id"),
                     set.getString("email"),
                     set.getString("name"),
                     set.getString("surname"),
                     set.getString("photo_url"),
                     ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.systemDefault())));
         }
-        return users;
+        return userList;
     }
 }
