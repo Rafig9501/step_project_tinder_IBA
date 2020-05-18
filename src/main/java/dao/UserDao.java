@@ -29,9 +29,10 @@ public class UserDao implements DAO<User> {
         PreparedStatement statement = connection.prepareStatement(CREATE.QUERY, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, user.getName());
         statement.setString(2, user.getSurname());
-        statement.setString(3, user.getEmail());
-        statement.setString(4, user.getPhotoUrl());
-        statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+        statement.setString(3, user.getPhotoUrl());
+        statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+        statement.setString(5, user.getEmail());
+        statement.setString(6, user.getPassword());
         statement.execute();
         if (statement.getGeneratedKeys().next()) {
             connection.setAutoCommit(true);
@@ -43,13 +44,14 @@ public class UserDao implements DAO<User> {
     @SneakyThrows
     @Override
     public Optional<User> get(String id) {
-        PreparedStatement statement = connection.prepareStatement(GET_ID.QUERY);
+        PreparedStatement statement = connection.prepareStatement(GET_BY_ID.QUERY);
         statement.setInt(1, Integer.parseInt(id));
         ResultSet set = statement.executeQuery();
         if (set.next()) {
             return Optional.of(new User(
                     set.getString("id"),
                     set.getString("email"),
+                    set.getString("password"),
                     set.getString("name"),
                     set.getString("surname"),
                     set.getString("photo_url"),
@@ -67,6 +69,7 @@ public class UserDao implements DAO<User> {
             return Optional.of(new User(
                     set.getString("id"),
                     set.getString("email"),
+                    set.getString("password"),
                     set.getString("name"),
                     set.getString("surname"),
                     set.getString("photo_url"),
@@ -98,6 +101,7 @@ public class UserDao implements DAO<User> {
             userList.add(new User(
                     set.getString("id"),
                     set.getString("email"),
+                    set.getString("password"),
                     set.getString("name"),
                     set.getString("surname"),
                     set.getString("photo_url"),
@@ -116,5 +120,24 @@ public class UserDao implements DAO<User> {
             likedIdList.add(set.getString("to_user_id"));
         }
         return likedIdList;
+    }
+
+    @SneakyThrows
+    public Optional<User> get(String email, String password) {
+        PreparedStatement statement = connection.prepareStatement(GET_BY_EMAIL_AND_PASSWORD.QUERY);
+        statement.setString(1, email);
+        statement.setString(2, password);
+        ResultSet set = statement.executeQuery();
+        if (set.next()) {
+            return Optional.of(new User(
+                    set.getString("id"),
+                    set.getString("email"),
+                    set.getString("password"),
+                    set.getString("name"),
+                    set.getString("surname"),
+                    set.getString("photo_url"),
+                    ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+        }
+        return Optional.empty();
     }
 }
