@@ -24,7 +24,7 @@
     <!--<input name="login" class="form-control" placeholder="Login (email)" required>-->
     <!--<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>-->
     <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-    <!--<a class="btn btn-lg btn-primary btn-block" href="register.html">Register</a>-->
+    <!--<a class="btn btn-lg btn-primary btn-block" href="register.ftl">Register</a>-->
     <!--<p class="mt-5 mb-3 text-muted">&copy; DAN.IT 2018</p>-->
 <!--</form>-->
 <form class="form-signin" method="post">

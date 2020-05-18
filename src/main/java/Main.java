@@ -22,6 +22,7 @@ public class Main {
 
         User user = new UserDao(JdbcConfig.getConnection()).get("jimms@gmail.com","bla bla").get();
         System.out.println(user.toString());
+        System.out.println(new UserDao(JdbcConfig.getConnection()).getAll());
 
 //        int kerry = new UserDao(JdbcConfig.getConnection()).delete(new User("18", "Kerry","gugg",null, null, null, null));
 //        System.out.println(kerry);
