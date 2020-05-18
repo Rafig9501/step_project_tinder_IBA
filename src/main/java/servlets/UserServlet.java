@@ -1,11 +1,17 @@
 package servlets;
 
+import dao.UserDao;
+import database.JdbcConfig;
+import entity.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 public class UserServlet extends HttpServlet {
     TemplateEngine engine;
@@ -16,7 +22,6 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Cookie ck[] = req.getCookies();
         if (ck != null) {
             String login = ck[0].getValue();
@@ -29,6 +34,8 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        resp.sendRedirect("/users/");
+//        List<User> all = new UserDao(JdbcConfig.getConnection()).getAll();
+//        HashMap<String,Object>
         engine.render("like-page.ftl", resp);
     }
 }
