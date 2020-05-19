@@ -19,10 +19,10 @@
     <input class="form-control" name="name" placeholder="Name" required>
     <input class="form-control" name="surname" placeholder="Surname" required>
     <input class="form-control" name="email" type="email" placeholder="email" required>
-    <input class="form-control" id="password" name="photoUrl" placeholder="photo url" required>
-    <input class="form-control" id="repeatPassword" type="password" name="password" id="inputPassword1"
+    <input class="form-control"  name="photoUrl" placeholder="photo url" required>
+    <input class="form-control"  type="password" name="password" id="password"
            placeholder="Password" required>
-    <input class="form-control" type="password" name="repeatPassword" id="inputPassword2"
+    <input class="form-control" type="password" name="repeatPassword" id="repeatPassword"
            placeholder="Password (repeat)" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit" formmethod="post" onclick="passcheck()">Register
     </button>
@@ -34,7 +34,7 @@
     function passcheck() {
         var password = document.getElementById("password").value;
         var password2 = document.getElementById("repeatPassword").value;
-        if (password == password2) {
+        if (password === password2) {
             alert("the password is correct");
         } else {
             alert("the password is not the same");
