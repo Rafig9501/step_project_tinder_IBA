@@ -140,4 +140,22 @@ public class UserDao implements DAO<User> {
         }
         return Optional.empty();
     }
+
+    @SneakyThrows
+    public Optional<User> getRandomUser(String id){
+        PreparedStatement statement = connection.prepareStatement(GET_RANDOM_USER.QUERY);
+        statement.setInt(1, Integer.parseInt(id));
+        ResultSet set = statement.executeQuery();
+        if (set.next()) {
+            return Optional.of(new User(
+                    set.getString("id"),
+                    set.getString("email"),
+                    set.getString("password"),
+                    set.getString("name"),
+                    set.getString("surname"),
+                    set.getString("photo_url"),
+                    ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+        }
+        return Optional.empty();
+    }
 }

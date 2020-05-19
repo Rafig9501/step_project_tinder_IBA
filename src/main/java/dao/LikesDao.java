@@ -83,4 +83,23 @@ public class LikesDao implements DAO<Like> {
         }
         return likeList;
     }
+
+    public Optional<Like> get(String fromId, String toId) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_FROM_ID_AND_TO_ID.QUERY)) {
+            statement.setInt(1, Integer.parseInt(fromId));
+            statement.setInt(2, Integer.parseInt(toId));
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                connection.setAutoCommit(true);
+                return Optional.of(new Like(
+                        set.getString("id"),
+                        set.getString("from_user_id"),
+                        set.getString("to_user_id"),
+                        set.getObject("is_like", Boolean.class)));
+            }
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+        return Optional.empty();
+    }
 }
