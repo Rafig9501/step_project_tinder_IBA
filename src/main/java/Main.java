@@ -1,17 +1,13 @@
 import dao.LikesDao;
-import dao.MessagesDao;
 import dao.UserDao;
-import database.JdbcConfig.*;
-import entity.Like;
-import entity.Message;
+import database.JdbcConfig;
 import entity.User;
-
-import java.util.List;
-import java.util.Optional;
+import service.UserService;
 
 public class Main {
 
     public static void main(String[] args) {
-
+        User randomUser = new UserService(new LikesDao(JdbcConfig.getConnection()), new UserDao(JdbcConfig.getConnection())).getRandomUser("25");
+        System.out.println(randomUser);
     }
 }

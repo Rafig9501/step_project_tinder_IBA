@@ -1,8 +1,5 @@
 package servlets;
 
-import dao.UserDao;
-import database.JdbcConfig;
-import entity.User;
 import service.RegistrationService;
 import utilities.engine.TemplateEngine;
 
@@ -11,14 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 
-import static database.JdbcConfig.getConnection;
 import static utilities.constants.LocalFiles.REG_FTL;
 
 
 public class RegistrationServlet extends HttpServlet {
+
     TemplateEngine engine;
     RegistrationService reqService;
 

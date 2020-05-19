@@ -27,7 +27,7 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit" formmethod="post" onclick="passcheck()">Register
     </button>
     <a class="btn btn-lg btn-primary btn-block" href="/login">Sign in</a>
-    <p class="mt-5 mb-3 text-muted">&copy; Dan.IT 2018</p>
+    <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020 </p>
 </form>
 </body>
 <script>
