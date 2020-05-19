@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="step_project_tinder" />
         <module name="step_project_tinder_IBA" />
+        <module name="step_project_tinder" />
       </profile>
     </annotationProcessing>
   </component>
