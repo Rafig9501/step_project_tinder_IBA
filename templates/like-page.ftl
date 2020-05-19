@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body style="background-color: #f5f5f5;">
-
 <div class="col-4 offset-4">
     <form method="post">
         <div class="card">
@@ -50,7 +49,7 @@
 </div>
 <form method="get">
     <div >
-        <button  class="btn btn-danger btn-lg">
+        <button  class="btn btn-danger btn-lg" formaction="/login">
             <span class="glyphicon glyphicon-log-out"></span> Log out
         </button>
     </div>
