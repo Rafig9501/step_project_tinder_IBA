@@ -102,4 +102,12 @@ public class LikesDao implements DAO<Like> {
         }
         return Optional.empty();
     }
+
+    @SneakyThrows
+    public int getCountFromId(String id) {
+        PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY);
+        statement.setInt(1, Integer.parseInt(id));
+        ResultSet set = statement.executeQuery();
+        return set.next() ? set.getInt("count") : -1;
+    }
 }

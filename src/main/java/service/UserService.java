@@ -28,14 +28,23 @@ public class UserService {
 
     private Optional<User> checkRandomUser(String currentUserId) {
         Optional<User> randomUser = userDao.getRandomUser(currentUserId);
-        if (randomUser.isPresent()) {
-            if (!notReactedUser(currentUserId, randomUser.get().getId()))
-                return randomUser;
-        }
+        if ((randomUser.isPresent())
+                && (!notReactedUser(currentUserId, randomUser.get().getId()))
+                && (ifAllUsersChecked(currentUserId)))
+            return randomUser;
         return Optional.empty();
     }
 
     private boolean notReactedUser(String fromId, String toId) {
         return likesDao.get(fromId, toId).isPresent();
+    }
+
+    private boolean ifAllUsersChecked(String fromId) {
+        int countFromId = likesDao.getCountFromId(fromId);
+        int allUsersCount = userDao.getAllUsersCount();
+        if (countFromId != -1) {
+            return (countFromId - 1) < allUsersCount;
+        }
+        return false;
     }
 }
