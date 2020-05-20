@@ -8,7 +8,6 @@ import java.time.ZonedDateTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class User implements Serializable {
     private String id;

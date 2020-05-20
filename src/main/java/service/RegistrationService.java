@@ -42,8 +42,6 @@ public class RegistrationService {
                 userDao.create(user);
                 resp.sendRedirect(LOGIN_PAGE);
                 return 1;
-            } else if (!repeatPassword.equals(password)) {
-                pw.write("the password was repeated incorrectly, please try again");
             } else if (new UserDao(JdbcConfig.getConnection()).getByEmail(email).isPresent()) {
                 pw.write("this email is existed ,please include another email");
             }

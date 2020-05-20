@@ -4,6 +4,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 public class CookiesService {
 
@@ -34,11 +35,14 @@ public class CookiesService {
     }
 
     public void removeCookie() {
-        Arrays.stream(req.getCookies()).filter(c -> c.getName().equalsIgnoreCase(CURRENT_USER_ID))
-                .map(c ->
-                        new Cookie(c.getName(), c.getValue()) {{
-                            setMaxAge(0);
-                        }})
-                .forEach(resp::addCookie);
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            Arrays.stream(cookies).filter(c -> c.getName().equalsIgnoreCase(CURRENT_USER_ID))
+                    .map(c ->
+                            new Cookie(c.getName(), c.getValue()) {{
+                                setMaxAge(0);
+                            }})
+                    .forEach(resp::addCookie);
+        }
     }
 }

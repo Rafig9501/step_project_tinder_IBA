@@ -19,9 +19,9 @@ public class LikeService {
         String currentUserId = cookiesService.getCookie().getValue();
         String toUser = req.getParameter("userId");
         if (req.getParameter("like") != null) {
-            likesDao.create(new Like(null, currentUserId, toUser, true));
+            likesDao.create(new Like(null, currentUserId, toUser, Boolean.TRUE));
         } else if (req.getParameter("dislike") != null) {
-            likesDao.create(new Like(null, currentUserId, toUser, false));
+            likesDao.create(new Like(null, currentUserId, toUser, Boolean.FALSE));
         }
     }
 }
