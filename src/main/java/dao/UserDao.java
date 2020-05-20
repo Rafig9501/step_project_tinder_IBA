@@ -124,6 +124,13 @@ public class UserDao implements DAO<User> {
     }
 
     @SneakyThrows
+    public int getAllUsersCount() {
+        PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS_COUNT.QUERY);
+        ResultSet set = statement.executeQuery();
+        return set.next() ? set.getInt("count") : -1;
+    }
+
+    @SneakyThrows
     public List<String> getAllLiked(String id) {
         List<String> likedIdList = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement(GET_ALL_LIKED.QUERY);
