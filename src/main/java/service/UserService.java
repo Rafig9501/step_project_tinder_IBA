@@ -39,7 +39,6 @@ public class UserService {
             return randomUser;
         }
         log.warn("random object is null");
-        if (areAllUsersReacted(currentId)) checkIsUserReacted(currentId);
         return Optional.empty();
     }
 
