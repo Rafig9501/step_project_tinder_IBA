@@ -1,14 +1,12 @@
 package servlets;
 
 import service.RegistrationService;
-import utilities.engine.TemplateEngine;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static utilities.constants.LocalFiles.REG_FTL;
-
 
 public class RegistrationServlet extends HttpServlet {
 

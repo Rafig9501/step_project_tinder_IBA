@@ -22,20 +22,20 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-lg-12 col-md-12 text-center">
-                        <img src="https://robohash.org/68.186.255.198.png" alt=""
+                        <img src="${user.photoUrl}"
                              class="mx-auto rounded-circle img-fluid">
-                        <h3 class="mb-0 text-truncated">User name</h3>
+                        <h3 class="mb-0 text-truncated">${user.name}  ${user.surname}</h3>
                         <br>
                     </div>
+                    <input type="hidden" name="userId" value=${user.id}>
                     <div class="col-12 col-lg-6">
-                        <button formmethod="post" class="btn btn-outline-danger btn-block" name="choice"><span
-                                class="fa fa-times"></span>
+                        <button name="dislike" type="submit" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span>
                             Dislike
                         </button>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <button formmethod="post" class="btn btn-outline-success btn-block" name="choice"><span
-                                class="fa fa-heart"></span> Like
+                        <button name="like" type="submit" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span>
+                            Like
                         </button>
                     </div>
                     <!--/col-->
