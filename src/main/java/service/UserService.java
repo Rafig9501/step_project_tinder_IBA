@@ -2,7 +2,6 @@ package service;
 
 import dao.LikesDao;
 import dao.UserDao;
-import entity.Like;
 import entity.User;
 
 import java.util.Optional;
@@ -17,12 +16,11 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public User getRandomUser(String currentId){
+    public User getRandomUser(String currentId) {
         Optional<User> user = checkRandomUser(currentId);
-        if (user.isPresent()){
+        if (user.isPresent()) {
             return user.get();
-        }
-        else {
+        } else {
             checkRandomUser(currentId);
             return null;
         }
@@ -30,14 +28,14 @@ public class UserService {
 
     private Optional<User> checkRandomUser(String currentUserId) {
         Optional<User> randomUser = userDao.getRandomUser(currentUserId);
-        if (randomUser.isPresent()){
-            if (!notReactedUser(currentUserId,randomUser.get().getId()))
+        if (randomUser.isPresent()) {
+            if (!notReactedUser(currentUserId, randomUser.get().getId()))
                 return randomUser;
         }
         return Optional.empty();
     }
 
-    private boolean notReactedUser(String fromId,String toId) {
+    private boolean notReactedUser(String fromId, String toId) {
         return likesDao.get(fromId, toId).isPresent();
     }
 }

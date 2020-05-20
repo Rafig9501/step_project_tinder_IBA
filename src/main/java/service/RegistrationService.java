@@ -1,6 +1,5 @@
 package service;
 
-import com.sun.deploy.net.HttpRequest;
 import dao.UserDao;
 import database.JdbcConfig;
 import entity.User;

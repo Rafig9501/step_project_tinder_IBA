@@ -1,6 +1,5 @@
 package servlets;
 
-import entity.User;
 import service.UserService;
 import utilities.engine.TemplateEngine;
 

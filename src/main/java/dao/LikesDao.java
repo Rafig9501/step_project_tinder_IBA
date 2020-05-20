@@ -23,8 +23,8 @@ public class LikesDao implements DAO<Like> {
         this.connection.setAutoCommit(false);
     }
 
-    @SneakyThrows
     @Override
+    @SneakyThrows
     public int create(Like like) {
         PreparedStatement statement = connection.prepareStatement(CREATE.QUERY, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, Integer.parseInt(like.getFromUser()));
@@ -38,8 +38,8 @@ public class LikesDao implements DAO<Like> {
         return -1;
     }
 
-    @SneakyThrows
     @Override
+    @SneakyThrows
     public Optional<Like> get(String id) {
         PreparedStatement statement = connection.prepareStatement(GET.QUERY);
         statement.setInt(1, Integer.parseInt(id));
@@ -55,8 +55,8 @@ public class LikesDao implements DAO<Like> {
         return Optional.empty();
     }
 
-    @SneakyThrows
     @Override
+    @SneakyThrows
     public int delete(Like like) {
         PreparedStatement statement = connection.prepareStatement(DELETE.QUERY, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, Integer.parseInt(like.getId()));
@@ -68,8 +68,8 @@ public class LikesDao implements DAO<Like> {
         return -1;
     }
 
-    @SneakyThrows
     @Override
+    @SneakyThrows
     public List<Like> getAll() {
         List<Like> likeList = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY);
