@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static utilities.constants.HttpPaths.*;
-import static utilities.constants.LocalFiles.*;
+import static utilities.constants.HttpPaths.USERS_PAGE;
+import static utilities.constants.LocalFiles.ENGINE_FOLDER;
+import static utilities.constants.LocalFiles.LOGIN_FTL;
 
 public class LoginService {
 
@@ -36,12 +37,9 @@ public class LoginService {
     }
 
     public void logOutUser(HttpServletRequest req, HttpServletResponse resp) {
-
         if (req.getCookies() != null) {
             Optional<Cookie> id = Arrays.stream(req.getCookies()).filter(cookie -> cookie.getName().equals("id")).findFirst();
-            if (id.isPresent()) {
-                new UserDao(JdbcConfig.getConnection()).updateLastLogin(id.get().getValue());
-            }
+            id.ifPresent(cookie -> new UserDao(JdbcConfig.getConnection()).updateLastLogin(cookie.getValue()));
             for (Cookie cookie : req.getCookies()) {
                 cookie.setMaxAge(0);
                 resp.addCookie(cookie);

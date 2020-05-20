@@ -43,7 +43,7 @@ public class UserDao implements DAO<User> {
 
     @SneakyThrows
     public int updateLastLogin(String id) {
-        PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN.QUERY,Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN.QUERY, Statement.RETURN_GENERATED_KEYS);
         statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
         statement.setInt(2, Integer.parseInt(id));
         statement.execute();

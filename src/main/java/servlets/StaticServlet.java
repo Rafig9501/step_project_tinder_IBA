@@ -1,11 +1,11 @@
 package servlets;
 
 
-import javax.servlet.ServletException;
+import lombok.SneakyThrows;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,27 +20,11 @@ public class StaticServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /**
-         * 1. get the file name from the request
-         * 2. translate the file name to the object File (Path)
-         * 3. read this File
-         * 4. write file read to response.outputStream
-         */
-        // 1
+    @SneakyThrows
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String filename = req.getPathInfo();
         String osFileLocation = "templates";
-        // 2
         Path path = Paths.get(osFileLocation, subPath, filename);
-        /**
-         * Paths.get("a","b","c")      -> "a/b/c"
-         * Paths.get("a/","b","c")     -> "a/b/c"
-         * Paths.get("a/","/b","c")    -> "a/b/c"
-         * Paths.get("a/","/b","//c")  -> "a/b/c"
-         * but:
-         * Paths.get("/a","b","c")     -> "/a/b/c"
-         */
-
         try (OutputStream os = resp.getOutputStream()) {
             // 3 & 4
             Files.copy(path, os);

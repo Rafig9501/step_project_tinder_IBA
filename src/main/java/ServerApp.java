@@ -7,7 +7,10 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import service.LoginService;
 import service.RegistrationService;
 import service.UserService;
-import servlets.*;
+import servlets.LoginServlet;
+import servlets.RegistrationServlet;
+import servlets.StaticServlet;
+import servlets.UserServlet;
 import utilities.constants.HttpPaths;
 import utilities.engine.TemplateEngine;
 
