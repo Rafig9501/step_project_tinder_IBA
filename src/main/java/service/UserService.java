@@ -43,7 +43,7 @@ public class UserService {
         int countFromId = likesDao.getCountFromId(fromId);
         int allUsersCount = userDao.getAllUsersCount();
         if (countFromId != -1) {
-            return (countFromId - 1) < allUsersCount;
+            return (countFromId) < (allUsersCount - 1);
         }
         return false;
     }
