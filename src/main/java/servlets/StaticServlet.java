@@ -25,7 +25,6 @@ public class StaticServlet extends HttpServlet {
         String osFileLocation = "templates";
         Path path = Paths.get(osFileLocation, subPath, filename);
         try (OutputStream os = resp.getOutputStream()) {
-            // 3 & 4
             Files.copy(path, os);
         }
     }

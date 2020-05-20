@@ -1,21 +1,17 @@
 package servlets;
 
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import service.LikeService;
 import service.UserService;
-import utilities.engine.TemplateEngine;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static utilities.constants.HttpPaths.LOGIN_PAGE;
-import static utilities.constants.LocalFiles.ENGINE_FOLDER;
-import static utilities.constants.LocalFiles.LIKE_DISLIKE_FTL;
-
+@Log4j2
 public class UserServlet extends HttpServlet {
 
     private final UserService service;
@@ -29,12 +25,15 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        service.getUserToShow(req, resp);
+        log.warn("UserServlet.doGet()");
+        service.displayUser(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.warn("UserServlet.doPost()");
         likeService.getReaction(req,resp);
+        log.warn("UserServlet.doPost() reaction got, sending to doGet();");
         doGet(req,resp);
     }
 }

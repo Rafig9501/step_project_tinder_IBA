@@ -1,6 +1,7 @@
 import dao.LikesDao;
 import dao.UserDao;
 import database.JdbcConfig;
+import lombok.extern.log4j.Log4j2;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -15,7 +16,7 @@ import servlets.UserServlet;
 import utilities.constants.HttpPaths;
 import utilities.engine.TemplateEngine;
 
-
+@Log4j2
 public class ServerApp {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8089);
@@ -31,5 +32,3 @@ public class ServerApp {
         server.join();
     }
 }
-
-//         svh.addServlet(new ServletHolder(new UserServlet(new UserService(new LikesDao(JdbcConfig.getConnection()), new UserDao(JdbcConfig.getConnection())))), "/users/*");
