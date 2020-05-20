@@ -12,11 +12,9 @@ import static utilities.constants.LocalFiles.REG_FTL;
 
 public class RegistrationServlet extends HttpServlet {
 
-    TemplateEngine engine;
     RegistrationService reqService;
 
-    public RegistrationServlet(TemplateEngine engine, RegistrationService reqService) {
-        this.engine = engine;
+    public RegistrationServlet(RegistrationService reqService) {
         this.reqService = reqService;
     }
 
