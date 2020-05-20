@@ -42,6 +42,19 @@ public class UserDao implements DAO<User> {
     }
 
     @SneakyThrows
+    public int updateLastLogin(String id) {
+        PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN.QUERY,Statement.RETURN_GENERATED_KEYS);
+        statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+        statement.setInt(2, Integer.parseInt(id));
+        statement.execute();
+        if (statement.getGeneratedKeys().next()) {
+            connection.setAutoCommit(true);
+            return statement.getGeneratedKeys().getInt(1);
+        }
+        return -1;
+    }
+
+    @SneakyThrows
     @Override
     public Optional<User> get(String id) {
         PreparedStatement statement = connection.prepareStatement(GET_BY_ID.QUERY);
@@ -142,7 +155,7 @@ public class UserDao implements DAO<User> {
     }
 
     @SneakyThrows
-    public Optional<User> getRandomUser(String id){
+    public Optional<User> getRandomUser(String id) {
         PreparedStatement statement = connection.prepareStatement(GET_RANDOM_USER.QUERY);
         statement.setInt(1, Integer.parseInt(id));
         ResultSet set = statement.executeQuery();

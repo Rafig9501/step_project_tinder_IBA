@@ -1,14 +1,15 @@
 package service;
 
 import dao.UserDao;
+import database.JdbcConfig;
 import entity.User;
 import lombok.SneakyThrows;
-import utilities.constants.LocalFiles;
 import utilities.engine.TemplateEngine;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static utilities.constants.HttpPaths.*;
@@ -35,7 +36,12 @@ public class LoginService {
     }
 
     public void logOutUser(HttpServletRequest req, HttpServletResponse resp) {
+
         if (req.getCookies() != null) {
+            Optional<Cookie> id = Arrays.stream(req.getCookies()).filter(cookie -> cookie.getName().equals("id")).findFirst();
+            if (id.isPresent()) {
+                new UserDao(JdbcConfig.getConnection()).updateLastLogin(id.get().getValue());
+            }
             for (Cookie cookie : req.getCookies()) {
                 cookie.setMaxAge(0);
                 resp.addCookie(cookie);
