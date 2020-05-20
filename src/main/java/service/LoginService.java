@@ -1,15 +1,12 @@
 package service;
 
 import dao.UserDao;
-import database.JdbcConfig;
 import entity.User;
 import lombok.SneakyThrows;
 import utilities.engine.TemplateEngine;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.Optional;
 
 import static utilities.constants.HttpPaths.USERS_PAGE;
@@ -20,6 +17,7 @@ public class LoginService {
 
     private final UserDao userDao;
     private final TemplateEngine engine;
+    CookiesService cookiesService;
 
     @SneakyThrows
     public LoginService(UserDao userDao) {
@@ -37,24 +35,16 @@ public class LoginService {
     }
 
     public void logOutUser(HttpServletRequest req, HttpServletResponse resp) {
-        if (req.getCookies() != null) {
-            Optional<Cookie> id = Arrays.stream(req.getCookies()).filter(cookie -> cookie.getName().equals("id")).findFirst();
-            id.ifPresent(cookie -> new UserDao(JdbcConfig.getConnection()).updateLastLogin(cookie.getValue()));
-            for (Cookie cookie : req.getCookies()) {
-                cookie.setMaxAge(0);
-                resp.addCookie(cookie);
-            }
-        }
+        cookiesService = new CookiesService(req, resp);
+        cookiesService.removeCookie();
     }
 
     @SneakyThrows
     public int logInUser(HttpServletRequest req, HttpServletResponse resp) {
-        Optional<User> userOptional = checkingUser(req.getParameter("email"), req.getParameter("password"));
-        if (userOptional.isPresent()) {
-            Cookie cookieEmail = new Cookie("email", req.getParameter("email"));
-            Cookie cookieId = new Cookie("id", userOptional.get().getId());
-            resp.addCookie(cookieEmail);
-            resp.addCookie(cookieId);
+        cookiesService = new CookiesService(req, resp);
+        Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
+        if (user.isPresent()) {
+            cookiesService.addCookie(user.get().getId());
             resp.sendRedirect(USERS_PAGE);
             return 1;
         }

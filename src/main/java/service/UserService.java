@@ -3,17 +3,37 @@ package service;
 import dao.LikesDao;
 import dao.UserDao;
 import entity.User;
+import lombok.SneakyThrows;
+import utilities.engine.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Optional;
+
+import static utilities.constants.LocalFiles.ENGINE_FOLDER;
+import static utilities.constants.LocalFiles.LIKE_DISLIKE_FTL;
 
 public class UserService {
 
     private final LikesDao likesDao;
     private final UserDao userDao;
+    private final TemplateEngine engine;
 
+    @SneakyThrows
     public UserService(LikesDao likesDao, UserDao userDao) {
         this.likesDao = likesDao;
         this.userDao = userDao;
+        engine = new TemplateEngine(ENGINE_FOLDER);
+    }
+
+    public void getUserToShow(HttpServletRequest req, HttpServletResponse resp) {
+        CookiesService cookiesService = new CookiesService(req, resp);
+        int id = Integer.parseInt(cookiesService.getCookie().getValue());
+        User randomUser = getRandomUser(String.valueOf(id));
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("user", randomUser);
+        engine.render(LIKE_DISLIKE_FTL, data, resp);
     }
 
     public User getRandomUser(String currentId) {
