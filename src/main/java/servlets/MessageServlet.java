@@ -1,6 +1,6 @@
 package servlets;
 
-import utilities.engine.TemplateEngine;
+import service.MessageService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,14 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MessageServlet extends HttpServlet {
-    TemplateEngine engine;
+
+    private final MessageService messageService;
+
+    public MessageServlet(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/message");
+        messageService.getMessages(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String text = req.getParameter("text");
+        String toId = req.getParameter("id");
+        messageService.sendMessage(req, resp, text, toId);
     }
 }
