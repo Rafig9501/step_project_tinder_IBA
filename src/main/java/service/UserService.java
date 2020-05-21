@@ -33,39 +33,16 @@ public class UserService {
         return userDao.getRandomUser(currentId);
     }
 
-    public Optional<User> checkIsUserReacted(String currentId) {
-        Optional<User> randomUser = getRandomUser(currentId);
-        if (!(likesDao.get(currentId, randomUser.get().getId()).isPresent())) {
-            return randomUser;
-        }
-        log.warn("random object is null");
-        return Optional.empty();
-    }
-
-    public boolean areAllUsersReacted(String fromId) {
-        int allUsersCount = userDao.getAllUsersCount();
-        int countFromId = likesDao.getCountFromId(fromId);
-        if (allUsersCount != -1 && countFromId != 0) {
-            return allUsersCount > countFromId + 1;
-        }
-        System.out.println(allUsersCount);
-        return true;
-    }
-
     @SneakyThrows
     public void displayUser(HttpServletRequest req, HttpServletResponse resp) {
         String currentUserId = new CookiesService(req, resp).getCookie().getValue();
-        Optional<User> randomUser = checkIsUserReacted(currentUserId);
-        if (randomUser.equals(Optional.empty()) && userDao.getAllUsersCount() == likesDao.getCountFromId(currentUserId) + 1) {
+        Optional<User> randomUser = getRandomUser(currentUserId);
+        if (!randomUser.isPresent())
             resp.sendRedirect("/liked");
-        } else if (randomUser.equals(Optional.empty())) {
-            resp.sendRedirect("/users");
-        } else if (randomUser.isPresent()) {
+        else {
             HashMap<String, Object> data = new HashMap<>();
             data.put("user", randomUser.get());
             engine.render(LIKE_DISLIKE_FTL, data, resp);
-        } else if (!areAllUsersReacted(currentUserId)) {
-            checkIsUserReacted(currentUserId);
-        } else resp.sendRedirect("/liked");
+        }
     }
 }
