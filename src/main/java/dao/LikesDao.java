@@ -37,6 +37,7 @@ public class LikesDao implements DAO<Like> {
                 return statement.getGeneratedKeys().getInt(1);
             } else return -1;
         } catch (Exception e) {
+            log.error("error in LikesDao.create(Like like)" + e.getMessage());
             return -1;
         }
     }
@@ -53,7 +54,7 @@ public class LikesDao implements DAO<Like> {
                             set.getString("to_user_id"),
                             set.getObject("is_like", Boolean.class)));
         } catch (Exception e) {
-            log.error("error in LikesDao.get(String id)");
+            log.error("error in LikesDao.get(String id)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -69,7 +70,7 @@ public class LikesDao implements DAO<Like> {
             }
             else return -1;
         } catch (Exception e) {
-            log.error("error in LikesDao.delete(Like like)");
+            log.error("error in LikesDao.delete(Like like)" + e.getMessage());
             return -1;
         }
     }
@@ -87,7 +88,7 @@ public class LikesDao implements DAO<Like> {
                         set.getObject("is_like", Boolean.class)));
             }
         } catch (Exception e) {
-            log.error("error in LikesDao.getAll()");
+            log.error("error in LikesDao.getAll()" + e.getMessage());
             return likeList;
         }
         return likeList;
@@ -107,7 +108,7 @@ public class LikesDao implements DAO<Like> {
                         set.getObject("is_like", Boolean.class)));
             }
         } catch (Exception e) {
-            log.error("error in LikesDao.get(String fromId, String toId)");
+            log.error("error in LikesDao.get(String fromId, String toId)" + e.getMessage());
             return Optional.empty();
         }
         return Optional.empty();
@@ -122,7 +123,7 @@ public class LikesDao implements DAO<Like> {
                 return set.getInt("count");
             }
         } catch (Exception e) {
-            log.error("error in LikesDao.getCountFromId()");
+            log.error("error in LikesDao.getCountFromId()" + e.getMessage());
         }
         return 0;
     }

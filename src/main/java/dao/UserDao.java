@@ -143,21 +143,6 @@ public class UserDao implements DAO<User> {
         }
     }
 
-    public List<String> getAllLiked(String id) {
-        List<String> likedIdList = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_LIKED.QUERY)) {
-            statement.setInt(1, Integer.parseInt(id));
-            ResultSet set = statement.executeQuery();
-            while (set.next()) {
-                likedIdList.add(set.getString("to_user_id"));
-            }
-            return likedIdList;
-
-        } catch (Exception e) {
-            return likedIdList;
-        }
-    }
-
     public Optional<User> get(String email, String password) {
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_EMAIL_AND_PASSWORD.QUERY)) {
             statement.setString(1, email);
@@ -193,6 +178,28 @@ public class UserDao implements DAO<User> {
                             ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
             return Optional.empty();
+        }
+    }
+
+    public List<User> getLikedUsers(String id) {
+        List<User> likedUsers = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_LIKED.QUERY)) {
+            statement.setInt(1, Integer.parseInt(id));
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                likedUsers.add(new User(
+                        set.getString("to_user_id"),
+                        set.getString("email"),
+                        null,
+                        set.getString("name"),
+                        set.getString("surname"),
+                        set.getString("photo_url"),
+                        ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.systemDefault())));
+            }
+            return likedUsers;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return likedUsers;
         }
     }
 }
