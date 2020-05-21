@@ -47,72 +47,30 @@
             <div class="chat-content">
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                Hii
-                            </p>
-                        </li>
-                        <li class="receive-msg float-left mb-2">
-                            <div class="sender-img">
-                                <img src="http://nicesnippets.com/demo/image1.jpg" class="float-left">
-                            </div>
-                            <div class="receive-msg-desc float-left ml-2">
-                                <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                    hiii <br>
-                                    How are you ?<br>
-                                </p>
-                                <span class="receive-msg-time">${user.name}  ${user.surname}</span>
-                            </div>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                nice <br>
-                                Are you fine ?
-                            </p>
-                        </li>
-                        <li class="receive-msg float-left mb-2">
-                            <div class="sender-img">
-                                <img src="http://nicesnippets.com/demo/image1.jpg" class="float-left">
-                            </div>
-                            <div class="receive-msg-desc float-left ml-2">
-                                <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                    Yes always
-                                </p>
-                            </div>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                <a href="https://nicesnippets.com/" class="text-dark rounded" target="_blank"><u>https://nicesnippets.com/</u></a>
-                            </p>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                Byy
-                            </p>
-                            <span class="send-msg-time">1 min</span>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                <a href="https://nicesnippets.com/" class="text-dark rounded" target="_blank"><u>https://nicesnippets.com/</u></a>
-                            </p>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                Byy
-                            </p>
-                            <span class="send-msg-time">1 min</span>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                <a href="https://nicesnippets.com/" class="text-dark rounded" target="_blank"><u>https://nicesnippets.com/</u></a>
-                            </p>
-                        </li>
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                Byy
-                            </p>
-                            <span class="send-msg-time">1 min</span>
-                        </li>
+                        <#--send message-->
+                        <#list messages as message>
+                            <#if message.fromId == "id">
+                                <li class="send-msg float-right mb-2">
+                                    <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
+                                        ${message.text}
+                                    </p>
+                                    <span class="send-msg-time">${message.time}</span>
+                                </li>
+                            <#--receive message-->
+                            <#else>
+                                <li class="receive-msg float-left mb-2">
+                                    <div class="sender-img">
+                                        <img src="${likedPerson.photoUrl}" alt="photo" class="float-left">
+                                    </div>
+                                    <div class="receive-msg-desc float-left ml-2">
+                                        <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
+                                            ${message.text}
+                                        </p>
+                                        <span class="receive-msg-time">${likedPerson.name}, ${message.time}</span>
+                                    </div>
+                                </li>
+                            </#if>
+                        </#list>
                     </ul>
                 </div>
                 <div class="col-md-12 p-2 msg-box border border-primary">
@@ -121,7 +79,8 @@
                             <i class="fa fa-smile-o"></i>
                         </div>
                         <div class="col-md-7 pl-0">
-                            <input type="text" class="border-0" placeholder=" Send message" />
+                            <input name="text" type="text" class="border-0" placeholder="Send message" />
+                            <input value="send" type="submit" class="border-0" placeholder="Send" />
                         </div>
                         <div class="col-md-3 text-right options-right">
                             <i class="fa fa-picture-o mr-2"></i>

@@ -1,4 +1,5 @@
 import dao.LikesDao;
+import dao.MessagesDao;
 import dao.UserDao;
 import database.JdbcConfig;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +10,8 @@ import service.*;
 import servlets.*;
 import utilities.constants.HttpPaths;
 import utilities.engine.TemplateEngine;
+
+import static utilities.constants.HttpPaths.MESSAGING_PAGE;
 
 @Log4j2
 public class ServerApp {
@@ -22,6 +25,7 @@ public class ServerApp {
         svh.addServlet(new ServletHolder(new LoginServlet(new LoginService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.LOGIN_PAGE);
         svh.addServlet(new ServletHolder(new RegistrationServlet(new RegistrationService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.REGISTRATION_PAGE);
         svh.addServlet(new ServletHolder(new PeoplesServlet(new LikedPeoplesService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.LIKE_PEOPLE);
+        svh.addServlet(new ServletHolder(new MessageServlet(new MessageService(new MessagesDao(JdbcConfig.getConnection(),null,null)))),MESSAGING_PAGE);
         server.setHandler(svh);
         server.start();
         server.join();
