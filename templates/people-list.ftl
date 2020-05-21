@@ -59,7 +59,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 20px;">
                 <a href="/users" role="button" class="btn btn-primary" style="display: block;width:130px;">Find love</a>
-                <a href="/logout" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
+                <a href="/login" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
             </div>
         </div>
     </div>
