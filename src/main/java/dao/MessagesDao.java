@@ -15,10 +15,14 @@ import static database.commands.MessageCommand.*;
 public class MessagesDao implements DAO<Message> {
 
     private final Connection connection;
+    private final String fromId;
+    private final String toId;
 
     @SneakyThrows
-    public MessagesDao(Optional<Connection> connection) {
+    public MessagesDao(Optional<Connection> connection, String fromId, String toId) {
         this.connection = connection.orElseThrow(RuntimeException::new);
+        this.fromId = fromId;
+        this.toId = toId;
     }
 
     @Override
@@ -93,6 +97,8 @@ public class MessagesDao implements DAO<Message> {
     public List<Message> getAll() {
         List<Message> messages = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY)) {
+            statement.setInt(1, Integer.parseInt(fromId));
+            statement.setInt(2, Integer.parseInt(toId));
             ResultSet set = statement.executeQuery();
             while (set.next()) {
                 messages.add(new Message(

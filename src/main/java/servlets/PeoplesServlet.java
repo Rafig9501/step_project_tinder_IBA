@@ -1,6 +1,6 @@
 package servlets;
 
-import utilities.engine.TemplateEngine;
+import service.LikedPeoplesService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,24 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static utilities.constants.LocalFiles.LIKED_PEOPLES;
-
 public class PeoplesServlet extends HttpServlet {
-    TemplateEngine engine;
 
-    public PeoplesServlet(TemplateEngine engine) {
-        this.engine = engine;
+    private final LikedPeoplesService likedPeoplesService;
+
+    public PeoplesServlet(LikedPeoplesService likedPeoplesService) {
+        this.likedPeoplesService = likedPeoplesService;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        engine.render(LIKED_PEOPLES, resp);
+        likedPeoplesService.displayLikedUsers(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
-
-
 }

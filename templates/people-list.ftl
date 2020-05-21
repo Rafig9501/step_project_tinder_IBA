@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
-    <#include "css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <#include "css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -33,9 +33,8 @@
                                 <td width="10">
                                     <div class="avatar-img">
                                         <img alt="no img" class="img-circle"
-                                             src="${user.imgUrl}"/>  
+                                             src="${user.photoUrl}"/>  
                                     </div>
-
                                 </td>
                                 <td class="align-middle">
                                     ${user.name} ${user.surname}
@@ -107,7 +106,7 @@
                             <#else>
                         <li class="receive-msg float-left mb-2">
                             <div class="sender-img">
-                                <img src="${likedPerson.imgUrl}" alt="photo" class="float-left">
+                                <img src="${likedPerson.photoUrl}" alt="photo" class="float-left">
                             </div>
                             <div class="receive-msg-desc float-left ml-2">
                                 <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
