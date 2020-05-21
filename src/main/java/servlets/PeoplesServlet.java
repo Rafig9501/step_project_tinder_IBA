@@ -8,16 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LikeServlet extends HttpServlet {
+import static utilities.constants.LocalFiles.LIKED_PEOPLES;
+
+public class PeoplesServlet extends HttpServlet {
     TemplateEngine engine;
 
-    public LikeServlet(TemplateEngine engine) {
+    public PeoplesServlet(TemplateEngine engine) {
         this.engine = engine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        engine.render("people-list.html", resp);
+        engine.render(LIKED_PEOPLES, resp);
     }
 
     @Override

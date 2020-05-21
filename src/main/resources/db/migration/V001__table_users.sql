@@ -1,3 +1,6 @@
+
+-------------------------------------------------------------------------------------------------------------------------
+
 create table users
 (
     id         bigserial not null
@@ -6,7 +9,9 @@ create table users
     name       varchar,
     surname    varchar,
     photo_url  varchar,
-    last_login timestamp
+    last_login timestamp,
+    email      varchar,
+    password   varchar
 );
 
 alter table users
@@ -15,7 +20,11 @@ alter table users
 create unique index users_id_uindex
     on users (id);
 
--------------------------------
+create unique index users_email_uindex
+    on users (email);
+
+-------------------------------------------------------------------------------------------------------------------------
+
 create table message_content
 (
     id        bigserial not null
@@ -31,7 +40,7 @@ alter table message_content
 create unique index message_content_id_uindex
     on message_content (id);
 
--------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 
 create table message_manager
 (
@@ -40,13 +49,16 @@ create table message_manager
             primary key,
     from_id            integer
         constraint from_id_fk
-            references users,
+            references users
+            on delete cascade,
     to_id              integer
         constraint to_id_fk
-            references users,
+            references users
+            on delete cascade,
     message_content_id integer
         constraint mes_man_mess_con_fk
             references message_content
+            on delete cascade
 );
 
 alter table message_manager
@@ -55,44 +67,28 @@ alter table message_manager
 create unique index message_manager_id_uindex
     on message_manager (id);
 
--------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 
-create table user_likes
+create table like_dislike
 (
-    id     bigserial not null
-        constraint user_likes_id_seq_pk
-            primary key,
-    "from" integer
-        constraint user_likes_from_users_id_fk
-            references users,
-    "to"   integer
-        constraint user_likes_to_users_id_fk
+    id           bigserial not null,
+    from_user_id integer   not null
+        constraint from_id_fk
             references users
+            on delete set null,
+    to_user_id   integer   not null
+        constraint to_id_fk
+            references users
+            on delete set null,
+    is_like      boolean,
+    constraint like_dislike_pk
+        primary key (from_user_id, to_user_id)
 );
 
-alter table user_likes
+alter table like_dislike
     owner to zqkbvaxaenesqq;
 
-create unique index user_likes_id_seq_id_uindex
-    on user_likes (id);
+create unique index like_dislike_id_uindex
+    on like_dislike (id);
 
--------------------------------
-
-create table user_unlikes
-(
-    id     bigserial not null
-        constraint user_unlikes_pk
-            primary key,
-    "from" integer
-        constraint user_unlikes_users_id_fk
-            references users,
-    "to"   integer
-        constraint "user_unlikes_users id_fk"
-            references users
-);
-
-alter table user_unlikes
-    owner to zqkbvaxaenesqq;
-
-create unique index user_unlikes_id_uindex
-    on user_unlikes (id);
+-------------------------------------------------------------------------------------------------------------------------
