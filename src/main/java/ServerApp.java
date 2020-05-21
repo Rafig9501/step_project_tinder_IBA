@@ -23,8 +23,8 @@ public class ServerApp {
         svh.addServlet(new ServletHolder(new StaticServlet("images")), "/images/*");
         svh.addServlet(new ServletHolder(new UserServlet(new UserService(new LikesDao(JdbcConfig.getConnection()),new UserDao(JdbcConfig.getConnection())),new LikeService(new LikesDao(JdbcConfig.getConnection())))),"/users/*");
         svh.addServlet(new ServletHolder(new LoginServlet(new LoginService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.LOGIN_PAGE);
-        svh.addServlet(new ServletHolder(new RegistrationServlet(new RegistrationService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.REG_PAGE);
-        svh.addServlet(new ServletHolder(new LikeServlet(engine)), "/liked");
+        svh.addServlet(new ServletHolder(new RegistrationServlet(new RegistrationService(new UserDao(JdbcConfig.getConnection())))), HttpPaths.REGISTRATION_PAGE);
+        svh.addServlet(new ServletHolder(new PeoplesServlet(engine)), "/liked");
         server.setHandler(svh);
         server.start();
         server.join();
