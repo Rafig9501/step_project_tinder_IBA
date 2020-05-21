@@ -7,7 +7,7 @@ public enum UserCommand {
     GET_BY_ID("SELECT * FROM users WHERE id = ?"),
     GET_EMAIL("SELECT * FROM users WHERE email = ?"),
     UPDATE_LAST_LOGIN("UPDATE users SET last_login = ? WHERE id = ? RETURNING id"),
-    GET_RANDOM_USER("SELECT * FROM users WHERE id !=? ORDER BY random() LIMIT 1"),
+    GET_RANDOM_USER("SELECT * FROM users WHERE id != ? AND id NOT IN (SELECT to_user_id FROM like_dislike WHERE to_user_id = users.id AND from_user_id = ?)LIMIT 1"),
     DELETE("DELETE FROM users WHERE id = ? RETURNING id"),
     GET_ALL("SELECT * FROM users"),
     GET_ALL_USERS_COUNT("SELECT count(*) FROM users"),

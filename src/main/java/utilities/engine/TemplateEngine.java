@@ -25,7 +25,7 @@ public class TemplateEngine {
         }};
     }
 
-    public void render(final String templateFile, final HttpServletResponse resp) throws IOException {
+    public void render(final String templateFile, final HttpServletResponse resp) {
         render(templateFile, new HashMap<>(), resp);
     }
 
