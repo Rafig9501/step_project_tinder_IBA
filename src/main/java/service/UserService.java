@@ -48,6 +48,7 @@ public class UserService {
         if (allUsersCount != -1 && countFromId != 0) {
             return allUsersCount > countFromId + 1;
         }
+        System.out.println(allUsersCount);
         return true;
     }
 
@@ -55,12 +56,16 @@ public class UserService {
     public void displayUser(HttpServletRequest req, HttpServletResponse resp) {
         String currentUserId = new CookiesService(req, resp).getCookie().getValue();
         Optional<User> randomUser = checkIsUserReacted(currentUserId);
-        if (randomUser.isPresent()) {
+        if (randomUser.equals(Optional.empty()) && userDao.getAllUsersCount() == likesDao.getCountFromId(currentUserId) + 1) {
+            resp.sendRedirect("/liked");
+        } else if (randomUser.equals(Optional.empty())) {
+            resp.sendRedirect("/users");
+        } else if (randomUser.isPresent()) {
             HashMap<String, Object> data = new HashMap<>();
             data.put("user", randomUser.get());
             engine.render(LIKE_DISLIKE_FTL, data, resp);
         } else if (!areAllUsersReacted(currentUserId)) {
             checkIsUserReacted(currentUserId);
-        } else resp.sendRedirect("/messages");
+        } else resp.sendRedirect("/liked");
     }
 }
