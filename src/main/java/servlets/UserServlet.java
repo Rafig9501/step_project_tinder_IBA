@@ -32,8 +32,8 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("UserServlet.doPost()");
-        likeService.getReaction(req,resp);
+        likeService.getReaction(req, resp);
         log.info("UserServlet.doPost() reaction got, sending to doGet();");
-        doGet(req,resp);
+        doGet(req, resp);
     }
 }

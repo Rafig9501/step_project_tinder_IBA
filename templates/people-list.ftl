@@ -37,12 +37,13 @@
                                         ${user.name} ${user.surname}
                                     </td>
                                     <td class="align-middle">
-                                        You liked this user
+                                        Last login
+                                        ${user.lastLogin}
                                     </td>
                                     <td class="align-middle">
                                         <form action="/chat" method="get">
                                             <input type="hidden" name="receiverUser" value="${user.id}">
-                                            <button name="send" type="submit"> Send message </button>
+                                            <button name="send" type="submit"> Send message</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -54,7 +55,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 20px;">
                 <a href="/users" role="button" class="btn btn-primary" style="display: block;width:130px;">Find love</a>
-                <a href="/logout" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
+                <a href="/login" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
             </div>
         </div>
     </div>
