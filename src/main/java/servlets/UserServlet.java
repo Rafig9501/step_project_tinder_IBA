@@ -25,15 +25,15 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.warn("UserServlet.doGet()");
+        log.info("UserServlet.doGet()");
         service.displayUser(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.warn("UserServlet.doPost()");
+        log.info("UserServlet.doPost()");
         likeService.getReaction(req,resp);
-        log.warn("UserServlet.doPost() reaction got, sending to doGet();");
+        log.info("UserServlet.doPost() reaction got, sending to doGet();");
         doGet(req,resp);
     }
 }

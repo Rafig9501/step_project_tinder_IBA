@@ -43,7 +43,7 @@ public class RegistrationService {
                 resp.sendRedirect(LOGIN_PAGE);
                 return 1;
             } else if (new UserDao(JdbcConfig.getConnection()).getByEmail(email).isPresent()) {
-                pw.write("this email is existed ,please include another email");
+                pw.write("this email is existed ,please write another email");
             }
         }
         return 0;
