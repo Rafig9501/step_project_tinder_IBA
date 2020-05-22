@@ -29,6 +29,10 @@ public class UserService {
         engine = new TemplateEngine(ENGINE_FOLDER);
     }
 
+    public void updateLastLogin(String id) {
+        userDao.updateLastLogin(id);
+    }
+
     public Optional<User> getRandomUser(String currentId) {
         return userDao.getRandomUser(currentId);
     }

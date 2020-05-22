@@ -9,7 +9,6 @@
     <title>Register</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body class="text-center">

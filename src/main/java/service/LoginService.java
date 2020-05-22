@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
-import static utilities.constants.HttpPaths.USERS_PAGE;
 import static utilities.constants.LocalFiles.ENGINE_FOLDER;
-import static utilities.constants.LocalFiles.LOGIN_FTL;
 
 public class LoginService {
 
@@ -30,26 +28,13 @@ public class LoginService {
         engine.render(fileLocation, resp);
     }
 
-    public Optional<User> checkingUser(String email, String password) {
-        return userDao.get(email, password);
-    }
-
     public void logOutUser(HttpServletRequest req, HttpServletResponse resp) {
         cookiesService = new CookiesService(req, resp);
         cookiesService.removeCookie();
-//        userDao.updateLastLogin(new CookiesService(req, resp).getCookie().getValue());
     }
 
     @SneakyThrows
-    public int logInUser(HttpServletRequest req, HttpServletResponse resp) {
-        cookiesService = new CookiesService(req, resp);
-        Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
-        if (user.isPresent()) {
-            cookiesService.addCookie(user.get().getId());
-            resp.sendRedirect(USERS_PAGE);
-            return 1;
-        }
-        engine.render(LOGIN_FTL, resp);
-        return -1;
+    public Optional<User> checkingUser(String email, String password) {
+        return userDao.get(email, password);
     }
 }
