@@ -8,9 +8,6 @@
     <link rel="icon" href="images/favicon.ico">
 
     <title>Liked list</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/style.css">
@@ -29,27 +26,26 @@
                         <table class="table-users table" border="0">
                             <tbody>
                             <#list users as user>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img alt="no img" class="img-circle"
-                                             src="${user.photoUrl}"/>  
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                    ${user.name} ${user.surname}
-                                </td>
-                                <td class="align-middle">
-                                    You liked this user
-                                </td>
-                                <td class="align-middle">
-                                <#--Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>-->
-                                    <form action="/chat" method="get">
-                                        <input type="hidden" name="user" value="${user.id}">
-                                        <button style="cursor: pointer" type="submit">Send message</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td width="10">
+                                        <div class="avatar-img">
+                                            <img alt="no img" class="img-circle"
+                                                 src="${user.photoUrl}"/>  
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        ${user.name} ${user.surname}
+                                    </td>
+                                    <td class="align-middle">
+                                        You liked this user
+                                    </td>
+                                    <td class="align-middle">
+                                        <form action="/chat" method="get">
+                                            <input type="hidden" name="receiverUser" value="${user.id}">
+                                            <button name="send" type="submit"> Send message </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             </#list>
                             </tbody>
                         </table>
@@ -58,7 +54,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 20px;">
                 <a href="/users" role="button" class="btn btn-primary" style="display: block;width:130px;">Find love</a>
-                <a href="/login" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
+                <a href="/logout" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
             </div>
         </div>
     </div>

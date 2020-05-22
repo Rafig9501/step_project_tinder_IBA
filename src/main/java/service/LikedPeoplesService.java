@@ -30,7 +30,6 @@ public class LikedPeoplesService {
 
     public void displayLikedUsers(HttpServletRequest req, HttpServletResponse resp) {
         String currentId = new CookiesService(req, resp).getCookie().getValue();
-        System.out.println(currentId);
         List<User> likedUsers = getLikedUsers(currentId);
         HashMap<String, Object> data = new HashMap<>();
         data.put("users", likedUsers);

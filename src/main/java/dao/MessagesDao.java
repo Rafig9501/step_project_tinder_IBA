@@ -15,14 +15,10 @@ import static database.commands.MessageCommand.*;
 public class MessagesDao implements DAO<Message> {
 
     private final Connection connection;
-    private final String fromId;
-    private final String toId;
 
     @SneakyThrows
-    public MessagesDao(Optional<Connection> connection, String fromId, String toId) {
+    public MessagesDao(Optional<Connection> connection) {
         this.connection = connection.orElseThrow(RuntimeException::new);
-        this.fromId = fromId;
-        this.toId = toId;
     }
 
     @Override
@@ -95,6 +91,9 @@ public class MessagesDao implements DAO<Message> {
 
     @Override
     public List<Message> getAll() {
+        return new ArrayList<>();
+    }
+    public List<Message> getAll(String fromId, String toId) {
         List<Message> messages = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY)) {
             statement.setInt(1, Integer.parseInt(fromId));
@@ -106,7 +105,7 @@ public class MessagesDao implements DAO<Message> {
                         set.getString("from_id"),
                         set.getString("to_id"),
                         set.getString("content"),
-                        ZonedDateTime.ofInstant(set.getTimestamp("date_time").toInstant(), ZoneId.of("UTC"))));
+                        ZonedDateTime.ofInstant(set.getTimestamp("date_time").toInstant(), ZoneId.systemDefault())));
             }
             return messages;
 

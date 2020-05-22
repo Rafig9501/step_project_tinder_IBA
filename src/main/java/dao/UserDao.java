@@ -68,7 +68,7 @@ public class UserDao implements DAO<User> {
                     Optional.of(new User(
                             set.getString("id"),
                             set.getString("email"),
-                            set.getString("password"),
+                            null,
                             set.getString("name"),
                             set.getString("surname"),
                             set.getString("photo_url"),
@@ -131,15 +131,6 @@ public class UserDao implements DAO<User> {
 
         } catch (Exception e) {
             return userList;
-        }
-    }
-
-    public int getAllUsersCount() {
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS_COUNT.QUERY)) {
-            ResultSet set = statement.executeQuery();
-            return !set.next() ? 0 : set.getInt("count");
-        } catch (Exception e) {
-            return 0;
         }
     }
 

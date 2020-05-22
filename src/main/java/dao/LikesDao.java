@@ -113,19 +113,5 @@ public class LikesDao implements DAO<Like> {
         }
         return Optional.empty();
     }
-
-
-    public int getCountFromId(String id) {
-        try (PreparedStatement statement = connection.prepareStatement(GET_COUNT_FROM_ID.QUERY)) {
-            statement.setInt(1, Integer.parseInt(id));
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                return set.getInt("count");
-            }
-        } catch (Exception e) {
-            log.error("error in LikesDao.getCountFromId()" + e.getMessage());
-        }
-        return 0;
-    }
 }
 

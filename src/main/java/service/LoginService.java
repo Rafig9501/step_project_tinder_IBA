@@ -37,6 +37,7 @@ public class LoginService {
     public void logOutUser(HttpServletRequest req, HttpServletResponse resp) {
         cookiesService = new CookiesService(req, resp);
         cookiesService.removeCookie();
+//        userDao.updateLastLogin(new CookiesService(req, resp).getCookie().getValue());
     }
 
     @SneakyThrows

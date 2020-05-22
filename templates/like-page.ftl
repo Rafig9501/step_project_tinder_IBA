@@ -52,6 +52,9 @@
         <button  class="btn btn-danger btn-lg" formaction="/login">
             <span class="glyphicon glyphicon-log-out"></span> Log out
         </button>
+        <button  class="btn btn-primary btn-lg" formaction="/liked">
+            <span class="glyphicon glyphicon-log-out"></span> Liked
+        </button>
     </div>
 </form>
 

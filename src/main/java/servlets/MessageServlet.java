@@ -18,13 +18,16 @@ public class MessageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        messageService.getMessages(req, resp);
+        String receiverUserId = req.getParameter("receiverUser");
+        messageService.getMessages(req, resp, receiverUserId);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String text = req.getParameter("text");
-        String toId = req.getParameter("id");
-        messageService.sendMessage(req, resp, text, toId);
+        String toId = req.getParameter("receiverUserId");
+        if (!text.equals(""))
+            messageService.sendMessage(req, resp, text, toId);
+        doGet(req, resp);
     }
 }
