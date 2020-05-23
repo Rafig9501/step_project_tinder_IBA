@@ -4,13 +4,14 @@ utilities\constants\HttpPaths.class
 entity\Like.class
 service\CookiesService.class
 service\UserService.class
+TinderApp.class
 dao\UserDao.class
 servlets\StaticServlet.class
 database\commands\UserCommand.class
 dao\LikesDao.class
 filter\LogOutFilter.class
-ServerApp.class
 service\LoginService.class
+servlets\ControllerServlets.class
 utilities\constants\LocalFiles.class
 dao\DAO.class
 database\JdbcConfig.class
@@ -22,6 +23,7 @@ database\flydb\FlyDbSetup.class
 entity\Message.class
 servlets\RegistrationServlet.class
 entity\User.class
+utilities\heroku\HerokuEnvironment.class
 servlets\PeoplesServlet.class
 database\commands\MessageCommand.class
 service\LikedPeoplesService.class
