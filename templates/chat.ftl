@@ -88,12 +88,18 @@
                         </form>
                     </div>
                 </div>
+                <p></p>
+                <form method="get">
+                    <div>
+                        <button class="btn btn-danger btn-lg" formaction="/liked">
+                            <span class="glyphicon glyphicon-log-out"></span> Liked
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-        <a class="btn btn-primary btn-lg" href="/liked">
-            <span class="glyphicon glyphicon-log-out"></span> Liked
-        </a>
     </div>
 </div>
+
 </body>
 </html>
