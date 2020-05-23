@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp ./target/classes:target/deps/* main.java.TinderApp
+web: java $JAVA_OPTS -cp ./target/classes:target/deps/* TinderApp
