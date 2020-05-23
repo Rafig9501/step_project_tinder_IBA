@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static utilities.constants.HttpPaths.MESSAGING_PAGE;
+
 public class MessageServlet extends HttpServlet {
 
     private final MessageService messageService;
@@ -28,6 +30,6 @@ public class MessageServlet extends HttpServlet {
         String toId = req.getParameter("receiverUserId");
         if (!text.equals(""))
             messageService.sendMessage(req, resp, text, toId);
-        doGet(req, resp);
+        resp.sendRedirect(MESSAGING_PAGE + "?receiverUser=" + toId);
     }
 }

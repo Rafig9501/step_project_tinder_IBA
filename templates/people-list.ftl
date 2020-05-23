@@ -43,7 +43,7 @@
                                     <td class="align-middle">
                                         <form action="/chat" method="get">
                                             <input type="hidden" name="receiverUser" value="${user.id}">
-                                            <button name="send" type="submit"> Send message</button>
+                                            <button type="submit"> Send message</button>
                                         </form>
                                     </td>
                                 </tr>
