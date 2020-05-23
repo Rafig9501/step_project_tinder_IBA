@@ -2,6 +2,7 @@ package dao;
 
 import entity.User;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 import java.time.ZoneId;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static database.commands.UserCommand.*;
 
+@Log4j2
 public class UserDao implements DAO<User> {
 
     private final Connection connection;
@@ -78,9 +80,8 @@ public class UserDao implements DAO<User> {
         }
     }
 
-    @SneakyThrows
     public Optional<User> getByEmail(String email) {
-        try (PreparedStatement statement = connection.prepareStatement(GET_EMAIL.QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_EMAIL.QUERY)) {
             statement.setString(1, email);
             ResultSet set = statement.executeQuery();
             return !set.next() ? Optional.empty() :
