@@ -11,10 +11,10 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Optional;
 
-import static utilities.constants.LocalFiles.ENGINE_FOLDER;
-import static utilities.constants.LocalFiles.LOGIN_FAILED;
+import static utilities.constants.LocalFiles.INFO_FTL;
 
 public class LoginFilter implements Filter {
 
@@ -22,9 +22,9 @@ public class LoginFilter implements Filter {
     private final TemplateEngine engine;
 
     @SneakyThrows
-    public LoginFilter(LoginService loginService) {
+    public LoginFilter(LoginService loginService, TemplateEngine engine) {
         this.loginService = loginService;
-        this.engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     @Override
@@ -45,7 +45,11 @@ public class LoginFilter implements Filter {
             Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
             if (user.isPresent()) {
                 new CookiesService(req, resp).addCookie(user.get().getId());
-            } else engine.render(LOGIN_FAILED, resp);
+            } else {
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("info", "Email or Password is incorrect");
+                engine.render(INFO_FTL, data, resp);
+            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

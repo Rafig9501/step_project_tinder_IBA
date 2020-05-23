@@ -19,9 +19,9 @@ public class RegistrationService {
     private final TemplateEngine engine;
 
     @SneakyThrows
-    public RegistrationService(UserDao userDao) {
+    public RegistrationService(UserDao userDao, TemplateEngine engine) {
         this.userDao = userDao;
-        this.engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     @SneakyThrows
@@ -38,14 +38,10 @@ public class RegistrationService {
             String photoUrl = req.getParameter("photoUrl");
             String password = req.getParameter("password");
             User user = new User(name, surname, email, photoUrl, password);
-            if (userDao.create(user) != -1) {
-                resp.sendRedirect(LOGIN_PAGE);
-            } else {
-                resp.getWriter().write("Something went wrong, please try again");
-            }
+            userDao.create(user);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("Error in RegistrationService.getParameters() " + e.getMessage());
-            resp.sendRedirect(LOGIN_PAGE);
         }
     }
 }

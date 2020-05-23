@@ -8,7 +8,8 @@
     <link rel="icon" href="images/favicon.ico">
 
     <title>Chat</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -47,28 +48,28 @@
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
                         <#list messageList as message>
-                        <#if message.fromId == id >
-                        <li class="send-msg float-right mb-2">
-                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                ${message.content}
-                            </p>
-                            <span class="send-msg-time">${message.messageDateTime}</span>
-                        </li>
-                        <#--receive message-->
-                        <#else>
-                        <li class="receive-msg float-left mb-2">
-                            <div class="sender-img">
-                                <img src="${receiver.photoUrl}" alt="photo" class="float-left">
-                            </div>
-                            <div class="receive-msg-desc float-left ml-2">
-                                <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                    ${message.content}
-                                </p>
-                                <span class="receive-msg-time">${receiver.name}, ${message.messageDateTime}</span>
-                            </div>
-                        </li>
-                    </#if>
-                </#list>
+                            <#if message.fromId == id >
+                                <li class="send-msg float-right mb-2">
+                                    <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
+                                        ${message.content}
+                                    </p>
+                                    <span class="send-msg-time">${message.messageDateTime}</span>
+                                </li>
+                            <#--receive message-->
+                            <#else>
+                                <li class="receive-msg float-left mb-2">
+                                    <div class="sender-img">
+                                        <img src="${receiver.photoUrl}" alt="photo" class="float-left">
+                                    </div>
+                                    <div class="receive-msg-desc float-left ml-2">
+                                        <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
+                                            ${message.content}
+                                        </p>
+                                        <span class="receive-msg-time">${receiver.name}, ${message.messageDateTime}</span>
+                                    </div>
+                                </li>
+                            </#if>
+                        </#list>
                     </ul>
                 </div>
                 <div style="position: relative" class="col-md-12 p-2 msg-box border border-primary">
@@ -78,14 +79,20 @@
                         </div>
                         <#--text-->
                         <form method="post" class="col-md-11 pl-0">
-                            <input name="text" style="width: 80%;" type="text" class="border-0" placeholder=" Send message"/>
+                            <input name="text" style="width: 80%;" type="text" class="border-0"
+                                   placeholder=" Send message"/>
                             <input name="receiverUserId" type="hidden" value="${receiver.id}">
-                            <button id="send" style="cursor: pointer; position: absolute; right: 10px; top: 0; " type="submit">Send/Update</button>
+                            <button id="send" style="cursor: pointer; position: absolute; right: 10px; top: 0; "
+                                    type="submit">Send/Update
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <a class="btn btn-primary btn-lg" href="/liked">
+            <span class="glyphicon glyphicon-log-out"></span> Liked
+        </a>
     </div>
 </div>
 </body>

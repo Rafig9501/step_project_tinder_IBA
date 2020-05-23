@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
-import static utilities.constants.LocalFiles.ENGINE_FOLDER;
-import static utilities.constants.LocalFiles.LIKED_PEOPLES;
+import static utilities.constants.LocalFiles.LIKED_PEOPLES_FTL;
 
 public class LikedPeoplesService {
 
@@ -19,9 +18,9 @@ public class LikedPeoplesService {
     private final TemplateEngine engine;
 
     @SneakyThrows
-    public LikedPeoplesService(UserDao userDao) {
+    public LikedPeoplesService(UserDao userDao, TemplateEngine engine) {
         this.userDao = userDao;
-        this.engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     private List<User> getLikedUsers(String currentId) {
@@ -33,6 +32,6 @@ public class LikedPeoplesService {
         List<User> likedUsers = getLikedUsers(currentId);
         HashMap<String, Object> data = new HashMap<>();
         data.put("users", likedUsers);
-        engine.render(LIKED_PEOPLES, data, resp);
+        engine.render(LIKED_PEOPLES_FTL, data, resp);
     }
 }

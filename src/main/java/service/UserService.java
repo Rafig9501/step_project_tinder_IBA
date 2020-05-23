@@ -23,10 +23,10 @@ public class UserService {
     private final TemplateEngine engine;
 
     @SneakyThrows
-    public UserService(LikesDao likesDao, UserDao userDao) {
+    public UserService(LikesDao likesDao, UserDao userDao, TemplateEngine engine) {
         this.likesDao = likesDao;
         this.userDao = userDao;
-        engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     public void updateLastLogin(String id) {

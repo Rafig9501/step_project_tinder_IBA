@@ -20,7 +20,7 @@
 <form class="form-signin" method="post">
 
     <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <center><h1>Email or Password is incorrect </h1></center>
+    <center><h4> ${info} </h4></center>
     <a class="btn btn-lg btn-primary btn-block" href="/login">Sign in</a>
     <a class="btn btn-lg btn-success btn-block" href="/registration">Sign up</a>
     <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
