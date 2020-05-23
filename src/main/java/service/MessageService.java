@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import static utilities.constants.LocalFiles.CHAT;
-import static utilities.constants.LocalFiles.ENGINE_FOLDER;
+import static utilities.constants.LocalFiles.CHAT_FTL;
 
 public class MessageService {
 
@@ -23,10 +22,10 @@ public class MessageService {
     private final UserDao userDao;
 
     @SneakyThrows
-    public MessageService(MessagesDao messagesDao, UserDao userDao) {
+    public MessageService(MessagesDao messagesDao, UserDao userDao, TemplateEngine engine) {
         this.messagesDao = messagesDao;
         this.userDao = userDao;
-        engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     public void getMessages(HttpServletRequest req, HttpServletResponse resp, String receiverId) {
@@ -37,7 +36,7 @@ public class MessageService {
         data.put("id", fromId);
         data.put("messageList", messagesBetweenFromIdToId);
         data.put("receiver", receiver.get());
-        engine.render(CHAT, data, resp);
+        engine.render(CHAT_FTL, data, resp);
     }
 
     public int sendMessage(HttpServletRequest req, HttpServletResponse resp, String text, String toId) {

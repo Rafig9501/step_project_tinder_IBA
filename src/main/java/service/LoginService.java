@@ -18,9 +18,9 @@ public class LoginService {
     CookiesService cookiesService;
 
     @SneakyThrows
-    public LoginService(UserDao userDao) {
+    public LoginService(UserDao userDao, TemplateEngine engine) {
         this.userDao = userDao;
-        this.engine = new TemplateEngine(ENGINE_FOLDER);
+        this.engine = engine;
     }
 
     @SneakyThrows
