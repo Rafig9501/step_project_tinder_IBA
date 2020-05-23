@@ -5,7 +5,6 @@ import servlets.ControllerServlets;
 public class TinderApp {
 
     public static void main(String[] args) throws Exception {
-
         new ControllerServlets().run();
     }
 }

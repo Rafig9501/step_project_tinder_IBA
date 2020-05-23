@@ -31,7 +31,6 @@ public class MessagesDao implements DAO<Message> {
     private int createContent(String content) {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_CONTENT.QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, content);
-            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             statement.execute();
             return !statement.getGeneratedKeys().next() ? -1 : statement.getGeneratedKeys().getInt(1);
         } catch (Exception e) {
@@ -98,6 +97,8 @@ public class MessagesDao implements DAO<Message> {
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY)) {
             statement.setInt(1, Integer.parseInt(fromId));
             statement.setInt(2, Integer.parseInt(toId));
+            statement.setInt(3, Integer.parseInt(fromId));
+            statement.setInt(4, Integer.parseInt(toId));
             ResultSet set = statement.executeQuery();
             while (set.next()) {
                 messages.add(new Message(
