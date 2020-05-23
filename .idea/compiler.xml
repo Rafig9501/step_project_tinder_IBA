@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="step_project_tinder_IBA" />
+        <module name="step_project_tinder_IBA0" />
         <module name="step_project_tinder" />
       </profile>
     </annotationProcessing>

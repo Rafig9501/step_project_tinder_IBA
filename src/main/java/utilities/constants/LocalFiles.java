@@ -9,5 +9,6 @@ public class LocalFiles {
     public static final String STATIC_IMAGES = "images";
     public static final String LIKED_PEOPLES = "people-list.ftl";
     public static final String CHAT = "chat.ftl";
+    public static final String LOGIN_FAILED = "login-failed.ftl";
     public static final String ENGINE_FOLDER = "./templates";
 }
