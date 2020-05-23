@@ -40,8 +40,11 @@ public class RegistrationService {
             String photoUrl = req.getParameter("photoUrl");
             String password = req.getParameter("password");
             User user = new User(name, surname, email, photoUrl, password);
-            userDao.create(user);
-            resp.sendRedirect(LOGIN_PAGE);
+            if (userDao.create(user) == 1)
+                resp.sendRedirect(LOGIN_PAGE);
+            else {
+                resp.getWriter().write("Something went wrong, please try again");
+            }
         } catch (Exception e) {
             log.error("Error in RegistrationService.getParameters() " + e.getMessage());
             resp.sendRedirect(LOGIN_PAGE);

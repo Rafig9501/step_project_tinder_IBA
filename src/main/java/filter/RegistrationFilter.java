@@ -3,15 +3,12 @@ package filter;
 import entity.User;
 import org.eclipse.jetty.http.HttpMethod;
 import service.LoginService;
-import service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
-
-import static utilities.constants.HttpPaths.LOGIN_PAGE;
 
 public class RegistrationFilter implements Filter {
 
@@ -37,10 +34,13 @@ public class RegistrationFilter implements Filter {
         if (HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
             Optional<User> user = checkingUser(req.getParameter("email"));
             if (user.isPresent()) {
-                resp.sendRedirect(LOGIN_PAGE);
+                resp.getWriter().write("User with this email already exists");
+            } else {
+                chain.doFilter(servletRequest, servletResponse);
             }
+        } else {
+            chain.doFilter(servletRequest, servletResponse);
         }
-        chain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

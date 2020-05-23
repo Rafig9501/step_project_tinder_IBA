@@ -38,8 +38,9 @@ public class LoginFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         if (HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
             Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
-            if (!user.isPresent())
+            if (!user.isPresent()) {
                 resp.sendRedirect(LOGIN_PAGE);
+            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
