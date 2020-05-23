@@ -37,4 +37,9 @@ public class LoginService {
     public Optional<User> checkingUser(String email, String password) {
         return userDao.get(email, password);
     }
+
+    @SneakyThrows
+    public Optional<User> checkingUserByEmail(String email) {
+        return userDao.getByEmail(email);
+    }
 }

@@ -80,7 +80,7 @@ public class UserDao implements DAO<User> {
 
     @SneakyThrows
     public Optional<User> getByEmail(String email) {
-        try (PreparedStatement statement = connection.prepareStatement(GET_EMAIL.QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_EMAIL.QUERY)) {
             statement.setString(1, email);
             ResultSet set = statement.executeQuery();
             return !set.next() ? Optional.empty() :

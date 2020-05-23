@@ -8,6 +8,7 @@ dao\UserDao.class
 servlets\StaticServlet.class
 database\commands\UserCommand.class
 dao\LikesDao.class
+filter\LogOutFilter.class
 ServerApp.class
 service\LoginService.class
 utilities\constants\LocalFiles.class
@@ -24,9 +25,11 @@ entity\User.class
 servlets\PeoplesServlet.class
 database\commands\MessageCommand.class
 service\LikedPeoplesService.class
+filter\LoginFilter.class
 service\CookiesService$1.class
 utilities\engine\TemplateEngine$1.class
 service\MessageService.class
 utilities\constants\JdbcConstants.class
 utilities\engine\TemplateEngine.class
 service\LikeService.class
+filter\RegistrationFilter.class

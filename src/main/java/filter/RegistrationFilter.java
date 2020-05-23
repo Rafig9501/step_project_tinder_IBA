@@ -1,7 +1,6 @@
 package filter;
 
 import entity.User;
-import lombok.SneakyThrows;
 import org.eclipse.jetty.http.HttpMethod;
 import service.LoginService;
 import service.UserService;
@@ -14,11 +13,11 @@ import java.util.Optional;
 
 import static utilities.constants.HttpPaths.LOGIN_PAGE;
 
-public class LoginFilter implements Filter {
+public class RegistrationFilter implements Filter {
 
     private final LoginService loginService;
 
-    public LoginFilter(LoginService loginService) {
+    public RegistrationFilter(LoginService loginService) {
         this.loginService = loginService;
     }
 
@@ -27,21 +26,21 @@ public class LoginFilter implements Filter {
 
     }
 
-    public Optional<User> checkingUser(String email, String password) {
-        return loginService.checkingUser(email, password);
+    public Optional<User> checkingUser(String email) {
+        return loginService.checkingUserByEmail(email);
     }
 
-    @SneakyThrows
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         if (HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
-            Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
-            if (!user.isPresent())
+            Optional<User> user = checkingUser(req.getParameter("email"));
+            if (user.isPresent()) {
                 resp.sendRedirect(LOGIN_PAGE);
+            }
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        chain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

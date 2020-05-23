@@ -4,6 +4,7 @@ C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\servlet
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\database\commands\UserCommand.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\utilities\engine\TemplateEngine.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\dao\LikesDao.java
+C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\filter\LoginFilter.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\service\LikeService.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\servlets\UserServlet.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\servlets\MessageServlet.java
@@ -20,9 +21,11 @@ C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\entity\
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\service\CookiesService.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\database\commands\MessageCommand.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\utilities\constants\LocalFiles.java
+C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\filter\LogOutFilter.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\servlets\LoginServlet.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\utilities\constants\JdbcConstants.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\dao\MessagesDao.java
+C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\filter\RegistrationFilter.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\ServerApp.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\dao\UserDao.java
 C:\Users\User\Desktop\IdeaProjects\step_project_tinder_IBA\src\main\java\service\MessageService.java
