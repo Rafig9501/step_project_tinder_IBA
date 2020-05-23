@@ -1,3 +1,5 @@
+package servlets;
+
 import dao.LikesDao;
 import dao.MessagesDao;
 import dao.UserDao;
@@ -5,13 +7,13 @@ import database.JdbcConfig;
 import filter.LogOutFilter;
 import filter.LoginFilter;
 import filter.RegistrationFilter;
-import lombok.extern.log4j.Log4j2;
+import lombok.SneakyThrows;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import service.*;
-import servlets.*;
+import utilities.heroku.HerokuEnvironment;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -20,12 +22,13 @@ import static utilities.constants.HttpPaths.*;
 import static utilities.constants.LocalFiles.STATIC_CSS;
 import static utilities.constants.LocalFiles.STATIC_IMAGES;
 
-@Log4j2
-public class ServerApp {
+public class ControllerServlets {
+
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
-    public static void main(String[] args) throws Exception {
-        Server server = new Server(8089);
+    @SneakyThrows
+    public void run(){
+        Server server = new Server(HerokuEnvironment.port());
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(new ServletHolder(new StaticServlet(STATIC_CSS)), STATIC_CSS_URL);
         handler.addServlet(new ServletHolder(new StaticServlet(STATIC_IMAGES)), STATIC_IMAGES_URL);

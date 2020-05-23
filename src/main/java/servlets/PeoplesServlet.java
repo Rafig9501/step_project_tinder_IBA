@@ -1,7 +1,6 @@
 package servlets;
 
 import service.LikedPeoplesService;
-import utilities.constants.HttpPaths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

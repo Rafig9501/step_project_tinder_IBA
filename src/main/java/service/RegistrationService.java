@@ -9,10 +9,8 @@ import utilities.engine.TemplateEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 
 import static utilities.constants.HttpPaths.LOGIN_PAGE;
-import static utilities.constants.HttpPaths.REGISTRATION_PAGE;
 import static utilities.constants.LocalFiles.ENGINE_FOLDER;
 
 @Log4j2
@@ -40,9 +38,9 @@ public class RegistrationService {
             String photoUrl = req.getParameter("photoUrl");
             String password = req.getParameter("password");
             User user = new User(name, surname, email, photoUrl, password);
-            if (userDao.create(user) == 1)
+            if (userDao.create(user) != -1) {
                 resp.sendRedirect(LOGIN_PAGE);
-            else {
+            } else {
                 resp.getWriter().write("Something went wrong, please try again");
             }
         } catch (Exception e) {
