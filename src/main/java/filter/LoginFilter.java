@@ -3,8 +3,9 @@ package filter;
 import entity.User;
 import lombok.SneakyThrows;
 import org.eclipse.jetty.http.HttpMethod;
+import service.CookiesService;
 import service.LoginService;
-import service.UserService;
+import utilities.engine.TemplateEngine;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static utilities.constants.HttpPaths.LOGIN_PAGE;
+import static utilities.constants.LocalFiles.ENGINE_FOLDER;
+import static utilities.constants.LocalFiles.LOGIN_FAILED;
 
 public class LoginFilter implements Filter {
 
     private final LoginService loginService;
+    private final TemplateEngine engine;
 
+    @SneakyThrows
     public LoginFilter(LoginService loginService) {
         this.loginService = loginService;
+        this.engine = new TemplateEngine(ENGINE_FOLDER);
     }
 
     @Override
@@ -38,9 +43,9 @@ public class LoginFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         if (HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
             Optional<User> user = checkingUser(req.getParameter("email"), req.getParameter("password"));
-            if (!user.isPresent()) {
-                resp.sendRedirect(LOGIN_PAGE);
-            }
+            if (user.isPresent()) {
+                new CookiesService(req, resp).addCookie(user.get().getId());
+            } else engine.render(LOGIN_FAILED, resp);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
