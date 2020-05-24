@@ -6,7 +6,9 @@ import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +35,7 @@ public class MessagesDao implements DAO<Message> {
     private int createContent(String content) {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_CONTENT.QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, content);
+            statement.setTimestamp(2, Timestamp.valueOf(ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
             statement.execute();
             return !statement.getGeneratedKeys().next() ? -1 : statement.getGeneratedKeys().getInt(1);
         } catch (Exception e) {
@@ -70,7 +73,7 @@ public class MessagesDao implements DAO<Message> {
                             set.getString("from_id"),
                             set.getString("to_id"),
                             set.getString("content"),
-                            ZonedDateTime.ofInstant(set.getTimestamp("date_time").toInstant(), ZoneId.of("UTC"))));
+                            set.getTimestamp("date_time").toLocalDateTime().atZone(ZoneOffset.UTC)));
         } catch (Exception e) {
             log.warn("Exception in MessagesDao.get(String id)" + e.getMessage());
             return Optional.empty();
@@ -113,7 +116,7 @@ public class MessagesDao implements DAO<Message> {
                         set.getString("from_id"),
                         set.getString("to_id"),
                         set.getString("content"),
-                        ZonedDateTime.ofInstant(set.getTimestamp("date_time").toInstant(), ZoneId.systemDefault())));
+                        set.getTimestamp("date_time").toLocalDateTime().atZone(ZoneOffset.UTC)));
             }
             return messages;
 
