@@ -8,9 +8,11 @@
     <link rel="icon" href="images/favicon.ico">
 
     <title>Liked list</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
+    <#include "css/bootstrap.min.css">
+    <#include "css/style.css">
+<#--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+<#--    <!-- Custom styles for this template &ndash;&gt;-->
+<#--    <link rel="stylesheet" href="css/style.css">-->
 </head>
 <body>
 

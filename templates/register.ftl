@@ -7,19 +7,20 @@
     <meta name="author" content="">
     <link rel="icon" href="images/favicon.ico">
     <title>Register</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <#include "css/bootstrap.min.css">
+    <#include "css/style.css">
 </head>
 
 <body class="text-center">
 <form class="form-signin" method="post">
-    <img class="mb-4" src="images/logo.png">
+    <#--    <img class="mb-4" src="images/logo.png">-->
+    <img src="https://britishacademy.az/uploads/1516218667.png" alt="Flowers in Chania" width="200" height="200">
     <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
     <input class="form-control" name="name" placeholder="Name" required>
     <input class="form-control" name="surname" placeholder="Surname" required>
     <input class="form-control" name="email" type="email" placeholder="email" required>
-    <input class="form-control"  name="photoUrl" placeholder="photo url" required>
-    <input class="form-control"  type="password" name="password" id="password"
+    <input class="form-control" name="photoUrl" placeholder="photo url" required>
+    <input class="form-control" type="password" name="password" id="password"
            placeholder="Password" required>
     <input class="form-control" type="password" name="repeatPassword" id="repeatPassword"
            placeholder="Password (repeat)" required>
