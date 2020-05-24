@@ -10,10 +10,8 @@
     <title>Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
+    <#include "css/bootstrap.min.css">
+    <#include "css/style.css">
 </head>
 
 <body class="text-center">

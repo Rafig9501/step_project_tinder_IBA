@@ -41,6 +41,7 @@ public class UserDao implements DAO<User> {
             } else return -1;
 
         } catch (Exception e) {
+            log.warn("Exception in UserDao.create(User user)" + e.getMessage());
             return -1;
         }
     }
@@ -57,6 +58,7 @@ public class UserDao implements DAO<User> {
             } else return -1;
 
         } catch (Exception e) {
+            log.warn("Exception in UserDao.updateLastLogin(String id)" + e.getMessage());
             return -1;
         }
     }
@@ -76,6 +78,7 @@ public class UserDao implements DAO<User> {
                             set.getString("photo_url"),
                             ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
+            log.warn("Exception in UserDao.get(String id)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -94,6 +97,7 @@ public class UserDao implements DAO<User> {
                             set.getString("photo_url"),
                             ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
+            log.warn("Exception in UserDao.getByEmail(String email)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -109,6 +113,7 @@ public class UserDao implements DAO<User> {
             } else return -1;
 
         } catch (Exception e) {
+            log.warn("Exception in UserDao.delete(User user)" + e.getMessage());
             return -1;
         }
     }
@@ -131,6 +136,7 @@ public class UserDao implements DAO<User> {
             return userList;
 
         } catch (Exception e) {
+            log.warn("Exception in UserDao.getAll()" + e.getMessage());
             return userList;
         }
     }
@@ -150,6 +156,7 @@ public class UserDao implements DAO<User> {
                             set.getString("photo_url"),
                             ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
+            log.warn("Exception in UserDao.get(String email, String password)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -169,6 +176,7 @@ public class UserDao implements DAO<User> {
                             set.getString("photo_url"),
                             ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
+            log.warn("Exception in UserDao.getRandomUser(String id)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -190,7 +198,7 @@ public class UserDao implements DAO<User> {
             }
             return likedUsers;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("Exception in UserDao.getRandomUser(String id)" + e.getMessage());
             return likedUsers;
         }
     }
