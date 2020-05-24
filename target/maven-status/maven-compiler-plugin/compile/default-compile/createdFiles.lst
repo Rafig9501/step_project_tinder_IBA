@@ -27,6 +27,7 @@ utilities\heroku\HerokuEnvironment.class
 servlets\PeoplesServlet.class
 database\commands\MessageCommand.class
 service\LikedPeoplesService.class
+filter\HttpFilter.class
 filter\LoginFilter.class
 service\CookiesService$1.class
 utilities\engine\TemplateEngine$1.class

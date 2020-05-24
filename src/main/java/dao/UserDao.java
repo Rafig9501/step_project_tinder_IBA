@@ -6,7 +6,9 @@ import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class UserDao implements DAO<User> {
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getPhotoUrl());
-            statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            statement.setTimestamp(4, Timestamp.valueOf(ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
             statement.setString(5, user.getEmail());
             statement.setString(6, user.getPassword());
             statement.execute();
@@ -49,7 +51,7 @@ public class UserDao implements DAO<User> {
     public int updateLastLogin(String id) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN.QUERY, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
-            statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            statement.setTimestamp(1, Timestamp.valueOf(ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
             statement.setInt(2, Integer.parseInt(id));
             statement.execute();
             if (statement.getGeneratedKeys().next()) {
@@ -76,7 +78,7 @@ public class UserDao implements DAO<User> {
                             set.getString("name"),
                             set.getString("surname"),
                             set.getString("photo_url"),
-                            ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+                            set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
         } catch (Exception e) {
             log.warn("Exception in UserDao.get(String id)" + e.getMessage());
             return Optional.empty();
@@ -95,7 +97,7 @@ public class UserDao implements DAO<User> {
                             set.getString("name"),
                             set.getString("surname"),
                             set.getString("photo_url"),
-                            ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+                            set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
         } catch (Exception e) {
             log.warn("Exception in UserDao.getByEmail(String email)" + e.getMessage());
             return Optional.empty();
@@ -131,7 +133,7 @@ public class UserDao implements DAO<User> {
                         set.getString("name"),
                         set.getString("surname"),
                         set.getString("photo_url"),
-                        ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.systemDefault())));
+                        set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
             }
             return userList;
 
@@ -154,7 +156,7 @@ public class UserDao implements DAO<User> {
                             set.getString("name"),
                             set.getString("surname"),
                             set.getString("photo_url"),
-                            ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+                            set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
         } catch (Exception e) {
             log.warn("Exception in UserDao.get(String email, String password)" + e.getMessage());
             return Optional.empty();
@@ -174,7 +176,7 @@ public class UserDao implements DAO<User> {
                             set.getString("name"),
                             set.getString("surname"),
                             set.getString("photo_url"),
-                            ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.of("UTC"))));
+                            set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
         } catch (Exception e) {
             log.warn("Exception in UserDao.getRandomUser(String id)" + e.getMessage());
             return Optional.empty();
@@ -194,7 +196,7 @@ public class UserDao implements DAO<User> {
                         set.getString("name"),
                         set.getString("surname"),
                         set.getString("photo_url"),
-                        ZonedDateTime.ofInstant(set.getTimestamp("last_login").toInstant(), ZoneId.systemDefault())));
+                        set.getTimestamp("last_login").toLocalDateTime().atZone(ZoneOffset.UTC)));
             }
             return likedUsers;
         } catch (Exception e) {
