@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/step_project</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="d8f11vb5jqrchi@ec2-34-230-149-169.compute-1.amazonaws.com" uuid="f08f43b3-e220-41b7-9b39-fc76c7a25146">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-34-230-149-169.compute-1.amazonaws.com:5432/d8f11vb5jqrchi</jdbc-url>
+    </data-source>
   </component>
 </project>

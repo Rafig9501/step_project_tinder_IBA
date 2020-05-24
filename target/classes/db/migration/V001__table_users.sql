@@ -1,4 +1,5 @@
 -- auto-generated definition
+
 create table users
 (
     id         bigserial not null
@@ -13,39 +14,14 @@ create table users
 );
 
 alter table users
-    owner to postgres;
+    owner to rjcnpntreuvuoe;
 
 create unique index users_id_uindex
     on users (id);
 
 create unique index users_email_uindex
     on users (email);
-
----------------------------------------------------------------------------------------------------------------------
-
-create table like_dislike
-(
-    id           bigserial not null,
-    from_user_id integer   not null
-        constraint from_id_fk
-            references users
-            on delete cascade,
-    to_user_id   integer   not null
-        constraint to_id_fk
-            references users
-            on delete cascade,
-    is_like      boolean,
-    constraint like_dislike_pk
-        primary key (from_user_id, to_user_id)
-);
-
-alter table like_dislike
-    owner to postgres;
-
-create unique index like_dislike_id_uindex
-    on like_dislike (id);
-
----------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 create table message_content
 (
@@ -53,16 +29,16 @@ create table message_content
         constraint message_content_pk
             primary key,
     content   varchar,
-    date_time timestamp default now()
+    date_time timestamp
 );
 
 alter table message_content
-    owner to postgres;
+    owner to rjcnpntreuvuoe;
 
 create unique index message_content_id_uindex
     on message_content (id);
 
----------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 create table message_manager
 (
@@ -84,8 +60,31 @@ create table message_manager
 );
 
 alter table message_manager
-    owner to postgres;
+    owner to rjcnpntreuvuoe;
 
 create unique index message_manager_id_uindex
     on message_manager (id);
 
+-------------------------------------------------------------------------------
+
+create table like_dislike
+(
+    id           bigserial not null,
+    from_user_id integer   not null
+        constraint from_id_fk
+            references users
+            on delete cascade,
+    to_user_id   integer   not null
+        constraint to_id_fk
+            references users
+            on delete cascade,
+    is_like      boolean,
+    constraint like_dislike_pk
+        primary key (from_user_id, to_user_id)
+);
+
+alter table like_dislike
+    owner to rjcnpntreuvuoe;
+
+create unique index like_dislike_id_uindex
+    on like_dislike (id);
