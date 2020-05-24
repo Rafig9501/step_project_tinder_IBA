@@ -2,6 +2,7 @@ package dao;
 
 import entity.Message;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 import java.time.ZoneId;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static database.commands.MessageCommand.*;
 
+@Log4j2
 public class MessagesDao implements DAO<Message> {
 
     private final Connection connection;
@@ -34,6 +36,7 @@ public class MessagesDao implements DAO<Message> {
             statement.execute();
             return !statement.getGeneratedKeys().next() ? -1 : statement.getGeneratedKeys().getInt(1);
         } catch (Exception e) {
+            log.warn("Exception in MessagesDao.createContent(String content)" + e.getMessage());
             return -1;
         }
     }
@@ -51,6 +54,7 @@ public class MessagesDao implements DAO<Message> {
             } else return -1;
 
         } catch (Exception e) {
+            log.warn("Exception in MessagesDao.relateContent(String fromId, String toId, String contentId)" + e.getMessage());
             return -1;
         }
     }
@@ -68,6 +72,7 @@ public class MessagesDao implements DAO<Message> {
                             set.getString("content"),
                             ZonedDateTime.ofInstant(set.getTimestamp("date_time").toInstant(), ZoneId.of("UTC"))));
         } catch (Exception e) {
+            log.warn("Exception in MessagesDao.get(String id)" + e.getMessage());
             return Optional.empty();
         }
     }
@@ -84,6 +89,7 @@ public class MessagesDao implements DAO<Message> {
             } else return -1;
 
         } catch (Exception e) {
+            log.warn("Exception in MessagesDao.delete(Message message)" + e.getMessage());
             return -1;
         }
     }
@@ -92,6 +98,7 @@ public class MessagesDao implements DAO<Message> {
     public List<Message> getAll() {
         return new ArrayList<>();
     }
+
     public List<Message> getAll(String fromId, String toId) {
         List<Message> messages = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL.QUERY)) {
@@ -111,6 +118,7 @@ public class MessagesDao implements DAO<Message> {
             return messages;
 
         } catch (Exception e) {
+            log.warn("Exception in MessagesDao.getAll(String fromId, String toId)" + e.getMessage());
             return messages;
         }
     }

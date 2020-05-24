@@ -4,6 +4,7 @@ import dao.LikesDao;
 import dao.MessagesDao;
 import dao.UserDao;
 import database.JdbcConfig;
+import filter.HttpFilter;
 import filter.LogOutFilter;
 import filter.LoginFilter;
 import filter.RegistrationFilter;
@@ -41,6 +42,7 @@ public class ControllerServlets {
         handler.addFilter(new FilterHolder(new LoginFilter(new LoginService(new UserDao(JdbcConfig.getConnection()), engine), engine)), LOGIN_PAGE, ft);
         handler.addFilter(new FilterHolder(new LogOutFilter(new UserService(new LikesDao(JdbcConfig.getConnection()), new UserDao(JdbcConfig.getConnection()), engine))), LOGIN_PAGE, ft);
         handler.addFilter(new FilterHolder(new RegistrationFilter(new LoginService(new UserDao(JdbcConfig.getConnection()), engine), engine)), REGISTRATION_PAGE, ft);
+        handler.addFilter(HttpFilter.class, "/*", ft);
         server.setHandler(handler);
         server.start();
         server.join();
