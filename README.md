@@ -6,6 +6,8 @@ A list of the working endpoints in a fully finished application:
 /messages/{id}  
 /login  
 
+Test user credentials : email : test_test@gmail.com  
+Test user credentials : password : 123  
 
 
 Order of tasks execution :  
