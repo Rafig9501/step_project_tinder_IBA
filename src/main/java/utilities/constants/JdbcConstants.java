@@ -2,7 +2,7 @@ package utilities.constants;
 
 public class JdbcConstants {
 
-    public static final String URL = "jdbc:postgresql://localhost:5432/step_project";
-    public static final String USER_NAME = "postgres";
-    public static final String PASSWORD = "2101";
+    public static final String URL = System.getenv("DB_URL");
+    public static final String USER_NAME = System.getenv("DB_USER_NAME");
+    public static final String PASSWORD = System.getenv("DB_PASSWORD");
 }
