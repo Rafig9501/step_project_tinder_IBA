@@ -10,7 +10,7 @@ gen
 
 # Maven
 /log/
-/target
+target
 
 # Package Files
 *.jar
