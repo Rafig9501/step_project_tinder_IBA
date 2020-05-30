@@ -7,11 +7,11 @@ A list of the working endpoints in a fully finished application:
 /login  
 
 
-Order of tasks execution (you are not required to follow it):  
+
+Order of tasks execution :  
 
 Create a new Maven app. Add required dependencies  
 Launch Jetty web-server  
-Create a test servlet which will output simple message 'Hello world' in the browser window  
 Map the test servlet to the "/users" path  
 Output a static HTML page with four elements - name, photo (a link to any picture from the web) and two buttons - Yes/No when requesting the "/users" path  
 Wrap the page in an HTML form  
@@ -41,4 +41,4 @@ Create an HttpFilter, which will redirect the non-logged in user to the login pa
 Add a possibility to log in from different accounts. Store each user's likes separately  
 Use remote database  
 Assemble the project into the executable JAR archive. Test locally that it is working  
-Deploy the project on Heroku (or AWS)  
+Deploy the project on Heroku  

@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,7 +47,7 @@ public class UserDao implements DAO<User> {
         }
     }
 
-    public int updateLastLogin(String id) {
+    public void updateLastLogin(String id) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN.QUERY, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
             statement.setTimestamp(1, Timestamp.valueOf(ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
@@ -56,12 +55,11 @@ public class UserDao implements DAO<User> {
             statement.execute();
             if (statement.getGeneratedKeys().next()) {
                 connection.setAutoCommit(true);
-                return statement.getGeneratedKeys().getInt(1);
-            } else return -1;
+                statement.getGeneratedKeys().getInt(1);
+            }
 
         } catch (Exception e) {
             log.warn("Exception in UserDao.updateLastLogin(String id)" + e.getMessage());
-            return -1;
         }
     }
 
