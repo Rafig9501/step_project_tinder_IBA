@@ -27,6 +27,8 @@ public class HttpFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         if (new CookiesService(req, resp).getCookie() == null && isHttp(req, resp) && !req.getRequestURI().matches("(/login|/registration)")) {
             resp.sendRedirect(LOGIN_PAGE);
+        } else if (new CookiesService(req, resp).getCookie() != null && isHttp(req, resp) && !req.getRequestURI().matches("(/users|/liked|/chat)")) {
+            resp.sendRedirect(LIKE_PEOPLE_PAGE);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
