@@ -10,5 +10,5 @@ public class LocalFiles {
     public static final String LIKED_PEOPLES_FTL = "people-list.ftl";
     public static final String CHAT_FTL = "chat.ftl";
     public static final String INFO_FTL = "info.ftl";
-    public static final String ENGINE_FOLDER = "./templates";
+    public static final String ENGINE_FOLDER = "src/main/resources/templates";
 }
